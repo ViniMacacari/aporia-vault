@@ -9,7 +9,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "devserver": "nodemon /api/server.js",
+    "devserver": "nodemon ./api/server.js",
     "build-angular": "ng build",
     "electron-pack": "electron-packager . aporia --platform=win32 --arch=x64 --out=dist --overwrite --asar",
     "build-installer": "electron-builder",
