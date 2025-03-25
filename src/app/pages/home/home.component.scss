@@ -1,35 +1,40 @@
-.vault {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+.my-vaults {
+    gap: 10px;
 
-    cursor: pointer;
-    transition: .3s ease-in;
+    .vault {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
 
-    $background-vault: #190b37;
+        cursor: pointer;
+        transition: .3s ease-in;
 
-    .vault-header {
-        background-color: $background-vault;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        $background-vault: #190b37;
 
-        width: 40px;
-        padding-top: 7px;
-        margin-bottom: -5px;
+        .vault-header {
+            background-color: $background-vault;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 
-        border-radius: 15px 15px 0px 0px;
-    }
+            width: 40px;
+            padding-top: 7px;
+            margin-bottom: -5px;
 
-    .vault-body {
-        background-color: $background-vault;
+            border-radius: 15px 15px 0px 0px;
+        }
 
-        width: 200px;
-        padding: 15px;
+        .vault-body {
+            background-color: $background-vault;
+            box-shadow: 0 6px 9px rgba(96, 13, 190, 0.05);
 
-        border-radius: 15px;
-    }
+            width: 200px;
+            padding: 15px;
 
-    &:hover {
-        transform: scale(1.02);
+            border-radius: 15px;
+        }
+
+        &:hover {
+            transform: scale(1.02);
+        }
     }
 }
