@@ -1,13 +1,43 @@
 {
   "name": "aporia-vault",
   "version": "0.0.0",
+  "main": "main.js",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "serve": "ng serve",
+    "start": "electron .",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "devserver": "nodemon /api/server.js",
+    "build-angular": "ng build",
+    "electron-pack": "electron-packager . aporia --platform=win32 --arch=x64 --out=dist --overwrite --asar",
+    "build-installer": "electron-builder",
+    "aporia": "npm run build-angular && npm run build-installer"
   },
+  "build": {
+    "appId": "com.aporiavault.app",
+    "productName": "Aporia Vault",
+    "directories": {
+      "output": "dist/installer"
+    },
+    "files": [
+      "main.js",
+      "dist/**/*",
+      "api/**/*",
+      "node_modules/**/*",
+      "public/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "./public/favicon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "type": "module",
   "private": true,
   "dependencies": {
     "@angular/animations": "^18.2.0",
@@ -18,8 +48,12 @@
     "@angular/platform-browser": "^18.2.0",
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
+    "electron": "^35.0.3",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "url": "^0.11.4",
     "zone.js": "~0.14.10"
   },
   "devDependencies": {
