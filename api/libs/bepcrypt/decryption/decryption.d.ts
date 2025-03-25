@@ -1,4 +1,4 @@
-import { BepCryptSeparator } from "../utils/separators";
+import { BepCryptSeparator } from "../utils/separators.js";
 export declare class BepCryptDecryption extends BepCryptSeparator {
     private separator;
     private specialCharacters;

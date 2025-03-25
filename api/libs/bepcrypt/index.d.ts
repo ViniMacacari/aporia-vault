@@ -2,6 +2,7 @@ export declare class BepCrypt {
     private encryption;
     private decryption;
     private fileConverter;
+    private compressor;
     encrypt(data: {
         privateKey: string;
         content: string;
@@ -13,7 +14,7 @@ export declare class BepCrypt {
     fileEncrypt(data: {
         privateKey: string;
         filePath: string;
-        fileName: string;
+        fileName?: string;
     }): Promise<any>;
     fileDecrypt(data: {
         privateKey: string;
