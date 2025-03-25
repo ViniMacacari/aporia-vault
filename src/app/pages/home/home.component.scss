@@ -7,22 +7,25 @@
     cursor: pointer;
     transition: .3s ease-in;
 
+    $background-vault: #190b37;
+
     .vault-header {
-        background-color: #1f0e40;
+        background-color: $background-vault;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 
         width: 40px;
         padding-top: 7px;
+        margin-bottom: -5px;
 
         border-radius: 15px 15px 0px 0px;
     }
 
     .vault-body {
-        background-color: #1f0e40;
+        background-color: $background-vault;
 
         width: 200px;
-        height: 90px;
         padding: 15px;
-    
+
         border-radius: 15px;
     }
 
