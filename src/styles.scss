@@ -1,1 +1,54 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: 'Nunito Sans';
+    src: url('../public/fonts/nunito-sans.ttf');
+}
+
+html, body {
+    height: 100%;
+}
+
+// Text styles
+
+h1 {
+    font-family: 'Nunito Sans' !important;
+    font-weight: 600 !important;
+    font-size: 2em !important;
+
+    color: #a250bb !important;
+}
+
+h2 {
+    font-family: 'Nunito Sans' !important;
+    font-weight: 500 !important;
+    font-size: 1.2em !important;
+
+    color: #7f508e !important;
+}
+
+p {
+    font-family: 'Nunito Sans' !important;
+    font-weight: 400 !important;
+    font-size: 1em !important;
+    
+    color: #694276 !important;
+}
+
+.icons {
+    color: #694276;
+}
+
+// Elements
+
+.circle {
+    width: 12px;
+    height: 12px;
+
+    border-radius: 100%;
+
+    background-color: black;
+}
+
+.separator {
+    width: 80%;
+    border-bottom: solid 1px #764a84;
+}
