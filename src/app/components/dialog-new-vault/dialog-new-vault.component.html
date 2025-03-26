@@ -4,18 +4,40 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">New vault</h2>
+                <h1>New vault</h1>
             </div>
             <div class="modal-body">
-                <div class="d-flex">
-                    <app-checkbox [text]="'Create a new bitcoin address?'"></app-checkbox>
+                <div class="d-flex flex-column gap-2">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="fa-solid fa-bitcoin-sign icons"></i>
+                        <h2 class="mb-0">Bitcoin settings</h2>
+                    </div>
+                    <div class="bitcoin-settings gap-1 d-flex flex-column">
+                        <app-checkbox [text]="'Create a new bitcoin address (BIP-39)'"
+                            [(checked)]="newBtcAddress"></app-checkbox>
+                        <app-checkbox [text]="'Import a new bitcoin address'"
+                            [(checked)]="importBtcAddress"></app-checkbox>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="fa-solid fa-vault icons"></i>
+                        <h2 class="mb-0">Vault settings</h2>
+                    </div>
+                    <div class="vault-settings gap-1 d-flex flex-column">
+                        <app-checkbox [text]="'Use dead words to boost vault security?'"
+                            [(checked)]="deadWords"></app-checkbox>
+                        <app-checkbox [text]="'Create fake wallet and keys on incorrect password?'"
+                            [(checked)]="fakeWallet"></app-checkbox>
+                        <app-checkbox [text]="'Base64 before encryption to hide known words?'"
+                            [(checked)]="base64"></app-checkbox>
+                        <app-checkbox [text]="'Require digital key (.aporiakey) to access vault contents?'"
+                            [(checked)]="digitalKey"></app-checkbox>
+                    </div>
                 </div>
-                <p>Insert your private key to unlock this vault.</p>
-                <input type="password" class="form-control" placeholder="Private key" />
             </div>
             <div class="modal-footer">
-                <app-button [text]="'Cancel'" [icon]="'fa-xmark'"></app-button>
-                <app-button [text]="'Create'" [icon]="'fa-plus'"></app-button>
+                <app-button [text]="'Create'" [icon]="'fa-plus'" (click)="confirm()"></app-button>
+                <app-button [text]="'Cancel'" [icon]="'fa-xmark'" (click)="close()"></app-button>
             </div>
         </div>
     </div>

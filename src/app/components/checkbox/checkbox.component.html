@@ -1,4 +1,4 @@
-<div class="d-flex align-items-center justify-content-center" (click)="toggleCheckbox()">
+<div class="d-flex align-items-center justify-content-center check" (click)="toggleCheckbox()">
     <div class="checkbox-wrapper">
         <input type="checkbox" [checked]="checked" [(ngModel)]="checked" (click)="$event.stopPropagation()" />
         <label>

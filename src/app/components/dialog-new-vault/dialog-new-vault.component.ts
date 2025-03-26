@@ -13,8 +13,21 @@ import { CheckboxComponent } from "../checkbox/checkbox.component"
 export class DialogNewVaultComponent {
   @Input() isVisible: boolean = false
   @Output() onClose = new EventEmitter<void>()
+  @Output() onConfirm = new EventEmitter<void>()
+
+  newBtcAddress: boolean = true
+  importBtcAddress: boolean = false
+
+  deadWords: boolean = true
+  fakeWallet: boolean = true
+  base64: boolean = true
+  digitalKey: boolean = true
 
   close() {
     this.onClose.emit()
+  }
+
+  confirm(): void {
+    this.onConfirm.emit()
   }
 }

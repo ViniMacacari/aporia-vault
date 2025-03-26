@@ -33,6 +33,11 @@
     }
 }
 
+.bitcoin-settings,
+.vault-settings {
+    padding: 5px 15px;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
