@@ -1,5 +1,5 @@
 .my-vaults {
-    gap: 10px;
+    gap: 20px;
 
     .vault {
         display: flex;
@@ -10,7 +10,7 @@
         cursor: pointer;
         transition: .3s ease-in;
 
-        $background-vault: #190b37;
+        $background-vault: rgb(25, 11, 55);
 
         .vault-header {
             background-color: $background-vault;

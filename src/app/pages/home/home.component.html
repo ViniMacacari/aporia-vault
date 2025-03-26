@@ -12,17 +12,19 @@
 </div>
 
 <div class="d-flex align-items-center justify-content-center my-vaults">
-    <div class="vault">
+    <div *ngFor="let vault of vaults" class="vault">
         <div class="d-flex align-items-center justify-content-center vault-header">
             <i class="fa-duotone fa-solid fa-vault"
                 style="--fa-primary-color: #694276; --fa-primary-opacity: 0.6; --fa-secondary-color: #694276; --fa-secondary-opacity: 1;"></i>
         </div>
         <div class="vault-body">
-            <div class="d-flex align-items-center justify-content-center mb-2 gap-2">
+            <div class="d-flex align-items-center justify-content-center gap-2">
                 <i class="fa-solid fa-lock-keyhole icons"></i>
-                <h2 class="m-0 text-center">Vault name</h2>
+                <h2 class="m-0 text-center">{{ vault }}</h2>
             </div>
-            <p class="text-center m-0">#1</p>
+            <div class="d-flex align-items-center justify-content-center gap-2">
+                <app-vault-element class="vault-element"></app-vault-element>
+            </div>
         </div>
     </div>
 </div>

@@ -17,7 +17,7 @@ export class InternalRequestService {
     })
     try {
       return await lastValueFrom(
-        this.http.get<any>(`${this.baseUrl}/${route}`, { headers, withCredentials: true })
+        this.http.get<any>(`${this.baseUrl}${route}`)
       )
     } catch (error: any) {
       throw this.handlePromiseError(error)
@@ -30,7 +30,7 @@ export class InternalRequestService {
     })
     try {
       return await lastValueFrom(
-        this.http.post<any>(`${this.baseUrl}/${route}`, data, { headers, withCredentials: true })
+        this.http.post<any>(`${this.baseUrl}${route}`, data)
       )
     } catch (error: any) {
       throw this.handlePromiseError(error)
