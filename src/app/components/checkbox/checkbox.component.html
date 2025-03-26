@@ -1,0 +1,9 @@
+<div class="d-flex align-items-center justify-content-center" (click)="toggleCheckbox()">
+    <div class="checkbox-wrapper">
+        <input type="checkbox" [checked]="checked" [(ngModel)]="checked" (click)="$event.stopPropagation()" />
+        <label>
+            <div class="tick_mark"></div>
+        </label>
+    </div>
+    <p class="my-0 mx-1 pointer no-select" [ngStyle]="{ color: color }">{{ text }}</p>
+</div>

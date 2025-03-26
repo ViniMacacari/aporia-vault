@@ -4,17 +4,19 @@ import { ButtonComponent } from "../../components/button/button.component"
 import { VaultElementComponent } from "../../components/vault-element/vault-element.component"
 
 import { InternalRequestService } from '../../services/request/internal-request.service'
+import { DialogNewVaultComponent } from "../../components/dialog-new-vault/dialog-new-vault.component"
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, VaultElementComponent],
+  imports: [CommonModule, ButtonComponent, VaultElementComponent, DialogNewVaultComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
   vaults: string[] = []
   hoveredVault: string | null = null
+  showNewVault: boolean = false
 
   constructor(
     private ireq: InternalRequestService

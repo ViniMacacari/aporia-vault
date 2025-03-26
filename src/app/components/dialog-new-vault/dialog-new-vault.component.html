@@ -1,0 +1,19 @@
+<div class="modal-backdrop fade show" *ngIf="isVisible"></div>
+
+<div class="modal fade show d-block custom-modal" tabindex="-1" role="dialog" aria-modal="true" *ngIf="isVisible">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">New vault</h2>
+            </div>
+            <div class="modal-body">
+                <p>Insert your private key to unlock this vault.</p>
+                <input type="password" class="form-control" placeholder="Private key" />
+            </div>
+            <div class="modal-footer">
+                <app-button [text]="'Cancel'" [icon]="'fa-xmark'"></app-button>
+                <app-button [text]="'Create'" [icon]="'fa-plus'"></app-button>
+            </div>
+        </div>
+    </div>
+</div>
