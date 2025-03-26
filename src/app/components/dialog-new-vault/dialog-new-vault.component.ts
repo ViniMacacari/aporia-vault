@@ -1,11 +1,12 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ButtonComponent } from "../button/button.component"
+import { CheckboxComponent } from "../checkbox/checkbox.component"
 
 @Component({
   selector: 'app-dialog-new-vault',
   standalone: true,
-  imports: [CommonModule, ButtonComponent],
+  imports: [CommonModule, ButtonComponent, CheckboxComponent],
   templateUrl: './dialog-new-vault.component.html',
   styleUrl: './dialog-new-vault.component.scss'
 })

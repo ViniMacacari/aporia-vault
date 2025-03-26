@@ -7,6 +7,9 @@
                 <h2 class="modal-title">New vault</h2>
             </div>
             <div class="modal-body">
+                <div class="d-flex">
+                    <app-checkbox [text]="'Create a new bitcoin address?'"></app-checkbox>
+                </div>
                 <p>Insert your private key to unlock this vault.</p>
                 <input type="password" class="form-control" placeholder="Private key" />
             </div>
