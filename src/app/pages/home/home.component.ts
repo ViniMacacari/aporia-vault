@@ -14,6 +14,7 @@ import { InternalRequestService } from '../../services/request/internal-request.
 })
 export class HomeComponent {
   vaults: string[] = []
+  hoveredVault: string | null = null
 
   constructor(
     private ireq: InternalRequestService

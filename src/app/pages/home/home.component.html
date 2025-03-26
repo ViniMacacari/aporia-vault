@@ -12,7 +12,8 @@
 </div>
 
 <div class="d-flex align-items-center justify-content-center my-vaults">
-    <div *ngFor="let vault of vaults" class="vault">
+    <div *ngFor="let vault of vaults" class="vault" (mouseenter)="hoveredVault = vault"
+        (mouseleave)="hoveredVault = null">
         <div class="d-flex align-items-center justify-content-center vault-header">
             <i class="fa-duotone fa-solid fa-vault"
                 style="--fa-primary-color: #694276; --fa-primary-opacity: 0.6; --fa-secondary-color: #694276; --fa-secondary-opacity: 1;"></i>
@@ -23,7 +24,8 @@
                 <h2 class="m-0 text-center">{{ vault }}</h2>
             </div>
             <div class="d-flex align-items-center justify-content-center gap-2">
-                <app-vault-element class="vault-element"></app-vault-element>
+                <app-vault-element class="vault-element" [hover]="hoveredVault === vault">
+                </app-vault-element>
             </div>
         </div>
     </div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core'
 
 @Component({
   selector: 'app-vault-element',
@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './vault-element.component.scss'
 })
 export class VaultElementComponent {
-
+  @Input() hover: boolean = false
 }

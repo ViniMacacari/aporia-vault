@@ -18,15 +18,14 @@
     box-sizing: border-box;
     position: relative;
     display: block;
-    width: 100px; // 500px * 0.2 = 100px
-    height: 100px; // 500px * 0.2 = 100px
+    width: 100px;
+    height: 100px;
     border-radius: 6%;
 
     * {
         box-sizing: content-box;
     }
 
-    // Repetido para garantir os valores:
     position: relative;
     width: 100px;
     height: 100px;
@@ -35,26 +34,26 @@
 
     .vault-door-inner {
         position: absolute;
-        margin: 10.4px; // 52px * 0.2 = 10.4px
-        width: 78px; // 390px * 0.2 = 78px
-        height: 78px; // 390px * 0.2 = 78px
+        margin: 10.4px;
+        width: 78px;
+        height: 78px;
         background: rgb(59, 18, 59);
         border-radius: 25%;
 
         .vault-door-lock-shadow {
             position: absolute;
-            width: 68px; // 340px * 0.2 = 68px
-            height: 36px; // 180px * 0.2 = 36px
+            width: 68px;
+            height: 36px;
             background: -webkit-linear-gradient(rgba(36, 11, 36, .2), transparent);
-            margin: 34px 18px; // 170px * 0.2 = 34px, 90px * 0.2 = 18px
+            margin: 34px 18px;
             transform: rotate(-45deg);
             transition: all .05s ease-out;
         }
 
         .vault-door-lock-wrapper {
             position: absolute;
-            width: 38px; // 190px * 0.2 = 38px
-            height: 38px; // 190px * 0.2 = 38px
+            width: 38px;
+            height: 38px;
         }
 
         .vault-door-lock {
@@ -63,25 +62,25 @@
 
         .vault-door-circle {
             position: absolute;
-            width: 62px; // 310px * 0.2 = 62px
-            height: 62px; // 310px * 0.2 = 62px
-            margin: 8px; // 40px * 0.2 = 8px
+            width: 62px;
+            height: 62px;
+            margin: 8px;
             border-radius: 50%;
         }
 
         .vault-door-pistons {
             position: absolute;
-            width: 68px; // 340px * 0.2 = 68px
-            height: 68px; // 340px * 0.2 = 68px
-            margin: 36px 5px; // 180px * 0.2 = 36px, 25px * 0.2 = 5px
+            width: 68px;
+            height: 68px;
+            margin: 36px 5px;
             background: none;
 
             .piston {
                 position: absolute;
                 background: rgb(25, 11, 55);
-                width: 68px; // 340px * 0.2 = 68px
-                height: 6px; // 30px * 0.2 = 6px
-                border-radius: 1.6px; // 8px * 0.2 = 1.6px
+                width: 68px;
+                height: 6px;
+                border-radius: 1.6px;
                 transition: all .05s ease-out;
 
                 &.piston2 {
@@ -101,36 +100,36 @@
         .vault-door-handle-shadow {
             position: absolute;
             background: rgb(59, 18, 59);
-            width: 30px; // 150px * 0.2 = 30px
-            height: 30px; // 150px * 0.2 = 30px
-            margin: 24px; // 120px * 0.2 = 24px
+            width: 30px;
+            height: 30px;
+            margin: 24px;
             border-radius: 50%;
         }
 
         .vault-door-handle-long-shadow {
             position: absolute;
             background: -webkit-linear-gradient(transparent);
-            width: 37.2px; // 186px * 0.2 = 37.2px
-            height: 37.2px; // 186px * 0.2 = 37.2px
-            margin: 33px; // 165px * 0.2 = 33px
+            width: 37.2px;
+            height: 37.2px;
+            margin: 33px;
             transform: rotate(-45deg);
         }
 
         .vault-door-handle {
             position: absolute;
-            border: solid 4.6px rgb(95, 28, 115); // 23px * 0.2 = 4.6px
-            width: 28px; // 140px * 0.2 = 28px
-            height: 28px; // 140px * 0.2 = 28px
-            margin: 20.4px; // 102px * 0.2 = 20.4px
+            border: solid 4.6px rgb(95, 28, 115);
+            width: 28px;
+            height: 28px;
+            margin: 20.4px;
             border-radius: 50%;
             transition: all .3s ease-in-out;
 
             .handle-bar {
                 position: absolute;
                 background: rgb(95, 28, 115);
-                height: 4.4px; // 22px * 0.2 = 4.4px
-                width: 28px; // 140px * 0.2 = 28px
-                margin: 11.8px 0; // 59px * 0.2 = 11.8px
+                height: 4.4px;
+                width: 28px;
+                margin: 11.8px 0;
 
                 &.bar1 {
                     transform: rotate(45deg);
@@ -145,15 +144,35 @@
 
     &.vault-door-outer:hover {
         .vault-door-lock-shadow {
-            width: 60px !important; // 300px * 0.2 = 60px
-            margin: 30px 18px !important; // 150px * 0.2 = 30px, 90px * 0.2 = 18px
+            width: 60px !important;
+            margin: 30px 18px !important;
             transition: all .2s ease-out !important;
         }
 
         .piston {
-            width: 62px !important; // 310px * 0.2 = 62px
-            margin-left: 3px !important; // 15px * 0.2 = 3px
-            margin-right: 3px !important; // 15px * 0.2 = 3px
+            width: 62px !important;
+            margin-left: 3px !important;
+            margin-right: 3px !important;
+            transition: all .2s ease-out !important;
+        }
+
+        .vault-door-handle {
+            transform: rotate(-180deg);
+            transition: all .7s ease-in-out;
+        }
+    }
+
+    &.hovered {
+        .vault-door-lock-shadow {
+            width: 60px !important;
+            margin: 30px 18px !important;
+            transition: all .2s ease-out !important;
+        }
+
+        .piston {
+            width: 62px !important;
+            margin-left: 3px !important;
+            margin-right: 3px !important;
             transition: all .2s ease-out !important;
         }
 
