@@ -26,7 +26,11 @@
       "dist/**/*",
       "api/**/*",
       "node_modules/**/*",
-      "public/**/*"
+      "public/**/*",
+      "vaults/**/*"
+    ],
+    "asarUnpack": [
+      "vaults"
     ],
     "win": {
       "target": "nsis",
