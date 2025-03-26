@@ -1,6 +1,7 @@
 import { BepCrypt } from '../../libs/bepcrypt/index.js'
 import path from 'path'
 import fs from 'fs/promises'
+import process from 'process'
 
 export class NewVaultService {
     bepcrypt = new BepCrypt()
@@ -14,11 +15,12 @@ export class NewVaultService {
         const safeFileName = data.fileName.replace(/\s+/g, '-')
         const filename = `${safeFileName}.aporia`
 
-        const chosenDir = data.directory
+        const baseDir = path.dirname(process.execPath)
+        const vaultsDir = path.join(baseDir, 'resources', 'vaults')
 
-        await fs.mkdir(chosenDir, { recursive: true })
-        const filePath = path.join(chosenDir, filename)
+        await fs.mkdir(vaultsDir, { recursive: true })
 
+        const filePath = path.join(vaultsDir, filename)
         await fs.writeFile(filePath, JSON.stringify(aporiaVault))
 
         return filePath
