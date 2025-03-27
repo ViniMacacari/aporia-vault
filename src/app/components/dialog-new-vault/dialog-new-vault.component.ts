@@ -60,6 +60,7 @@ export class DialogNewVaultComponent {
   digitalKey: boolean = true
 
   securePassword: string = ''
+  confirmSecurePassword: string = ''
 
   constructor(
     private keyType: KeyTypeDetectorService

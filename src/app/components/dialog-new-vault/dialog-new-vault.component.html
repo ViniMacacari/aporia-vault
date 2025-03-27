@@ -19,8 +19,9 @@
                             (checkedChange)="onImportBtcAddressChange($event)"></app-checkbox>
                         <div [@elementTransition]="importBtcAddress ? 'visible' : 'hidden'"
                             (@elementTransition.done)="onTextareaAnimationDone($event)">
-                            <app-textarea [border]="validAddress ? 'green' : 'red'" [placeholder]="'Your private key or seed prhase'"
-                                [(model)]="btcAddress" (modelChange)="onBtcAddressChange($event)"></app-textarea>
+                            <app-textarea [border]="validAddress ? 'green' : 'red'"
+                                [placeholder]="'Your private key or seed prhase'" [(model)]="btcAddress"
+                                (modelChange)="onBtcAddressChange($event)"></app-textarea>
                         </div>
                     </div>
 
@@ -42,8 +43,10 @@
                         <h2 class="mb-0">Key settings</h2>
                     </div>
                     <div class="vault-settings gap-2 d-flex flex-column">
-                        <app-input [type]="'text'" [placeholder]="'Your secure password'"
+                        <app-input [type]="'password'" [placeholder]="'Your secure password'"
                             [(model)]="securePassword"></app-input>
+                        <app-input [type]="'password'" [placeholder]="'Confirm your password'"
+                            [(model)]="confirmSecurePassword"></app-input>
                     </div>
                 </div>
             </div>
