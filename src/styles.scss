@@ -53,3 +53,23 @@ p {
     width: 80%;
     border-bottom: solid 1px #764a84;
 }
+
+// Scroll
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0f061b;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(145deg, #4d145a, #5f1c73); // estilo roxo metálico
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(145deg, #5f1c73, #a88bd2); // cor ao passar o mouse
+}
