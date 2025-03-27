@@ -13,11 +13,12 @@
                         <h2 class="mb-0">Bitcoin settings</h2>
                     </div>
                     <div class="bitcoin-settings gap-1 d-flex flex-column">
-                        <app-checkbox [text]="'Create a new bitcoin address (BIP-39)'"
-                            [(checked)]="newBtcAddress"></app-checkbox>
-                        <app-checkbox [text]="'Import a new bitcoin address'"
-                            [(checked)]="importBtcAddress"></app-checkbox>
-                        <app-textarea [placeholder]="'Your private key'"></app-textarea>
+                        <app-checkbox [text]="'Create a new bitcoin address (BIP-39)'" [(checked)]="newBtcAddress"
+                            (checkedChange)="onNewBtcAddressChange($event)"></app-checkbox>
+                        <app-checkbox [text]="'Import a new bitcoin address'" [(checked)]="importBtcAddress"
+                            (checkedChange)="onImportBtcAddressChange($event)"></app-checkbox>
+                        <app-textarea *ngIf="importBtcAddress" [placeholder]="'Your private key'"
+                            [(model)]="btcAddress"></app-textarea>
                     </div>
 
                     <div class="d-flex align-items-center gap-2">

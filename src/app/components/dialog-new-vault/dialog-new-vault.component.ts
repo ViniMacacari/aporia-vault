@@ -32,4 +32,14 @@ export class DialogNewVaultComponent {
   confirm(): void {
     this.onConfirm.emit()
   }
+
+  onNewBtcAddressChange(checked: boolean) {
+    this.newBtcAddress = checked
+    this.importBtcAddress = !checked
+  }
+
+  onImportBtcAddressChange(checked: boolean) {
+    this.importBtcAddress = checked
+    this.newBtcAddress = !checked
+  }
 }
