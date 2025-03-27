@@ -41,12 +41,7 @@
                         <h2 class="mb-0">Key settings</h2>
                     </div>
                     <div class="vault-settings gap-1 d-flex flex-column">
-                        <app-checkbox [text]="'Use dead words to boost vault security?'"
-                            [(checked)]="deadWords"></app-checkbox>
-                        <app-checkbox [text]="'Create fake wallet and keys on incorrect password?'"
-                            [(checked)]="fakeWallet"></app-checkbox>
-                        <app-checkbox [text]="'Require digital key (.aporiakey) to access vault contents?'"
-                            [(checked)]="digitalKey"></app-checkbox>
+                        <app-input [type]="'text'" [placeholder]="'Your secure password'" [(model)]="securePassword"></app-input>
                     </div>
                 </div>
             </div>

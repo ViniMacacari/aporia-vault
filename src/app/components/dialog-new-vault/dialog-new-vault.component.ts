@@ -11,11 +11,12 @@ import {
 import { ButtonComponent } from "../button/button.component"
 import { CheckboxComponent } from "../checkbox/checkbox.component"
 import { TextareaComponent } from "../textarea/textarea.component"
+import { InputComponent } from "../input/input.component"
 
 @Component({
   selector: 'app-dialog-new-vault',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, CheckboxComponent, TextareaComponent],
+  imports: [CommonModule, ButtonComponent, CheckboxComponent, TextareaComponent, InputComponent],
   templateUrl: './dialog-new-vault.component.html',
   styleUrl: './dialog-new-vault.component.scss',
   animations: [
@@ -54,6 +55,8 @@ export class DialogNewVaultComponent {
   fakeWallet: boolean = true
   base64: boolean = true
   digitalKey: boolean = true
+
+  securePassword: string = ''
 
   close() {
     this.onClose.emit()
