@@ -19,12 +19,18 @@ export class ReadVaultService {
         if (!exists) throw new Error('File not found')
 
         const content = await fs.readFile(filePath, 'utf-8')
-        const parsed = JSON.parse(content)
+        const hasPlausibleDeniability = content.includes('plausibleDeniability===')
+
+        const resetSettings = content.replace('plausibleDeniability===', '')
 
         const decrypted = await this.bepcrypt.decrypt({
-            content: parsed,
+            content: resetSettings,
             privateKey: data.privateKey
         })
+
+        if (decrypted === null || decrypted === '') {
+            
+        }
 
         const decoded = Buffer.from(decrypted, 'base64').toString('utf-8')
         const original = this.deadContent.extractContent(decoded)

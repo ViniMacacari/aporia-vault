@@ -11,7 +11,7 @@ export class NewVaultService {
     async new(data) {
         const content = await this.boost(data.content)
 
-        const aporiaVault = await this.bepcrypt.encrypt({
+        let aporiaVault = await this.bepcrypt.encrypt({
             privateKey: data.privateKey,
             content: content
         })
@@ -25,7 +25,12 @@ export class NewVaultService {
         await fs.mkdir(vaultsDir, { recursive: true })
 
         const filePath = path.join(vaultsDir, filename)
-        await fs.writeFile(filePath, JSON.stringify(aporiaVault))
+
+        if (data.settings.fakeWallet) {
+            aporiaVault = 'plausibleDeniability===' + aporiaVault
+        }
+
+        await fs.writeFile(filePath, aporiaVault)
 
         return filePath
     }
@@ -33,6 +38,7 @@ export class NewVaultService {
     async boost(content) {
         const raw = this.deadContent.addContent(content)
         const buffer = Buffer.from(raw, 'utf-8')
+
         return buffer.toString('base64')
     }
 }
