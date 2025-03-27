@@ -1,5 +1,13 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import {
+  trigger,
+  transition,
+  style,
+  animate,
+  state,
+  AnimationEvent
+} from '@angular/animations'
 import { ButtonComponent } from "../button/button.component"
 import { CheckboxComponent } from "../checkbox/checkbox.component"
 import { TextareaComponent } from "../textarea/textarea.component"
@@ -9,7 +17,28 @@ import { TextareaComponent } from "../textarea/textarea.component"
   standalone: true,
   imports: [CommonModule, ButtonComponent, CheckboxComponent, TextareaComponent],
   templateUrl: './dialog-new-vault.component.html',
-  styleUrl: './dialog-new-vault.component.scss'
+  styleUrl: './dialog-new-vault.component.scss',
+  animations: [
+    trigger('elementTransition', [
+      state('hidden', style({
+        opacity: 0,
+        transform: 'scale(0.8) translateY(20px)',
+        filter: 'blur(3px)',
+        height: '0',
+        overflow: 'hidden',
+        padding: '0',
+        margin: '0'
+      })),
+      state('visible', style({
+        opacity: 1,
+        transform: 'scale(1) translateY(0)',
+        filter: 'blur(0)',
+        height: '*'
+      })),
+      transition('hidden => visible', animate('350ms ease-out')),
+      transition('visible => hidden', animate('250ms ease-in'))
+    ])
+  ]
 })
 export class DialogNewVaultComponent {
   @Input() isVisible: boolean = false
@@ -19,6 +48,7 @@ export class DialogNewVaultComponent {
   newBtcAddress: boolean = true
   importBtcAddress: boolean = false
   btcAddress: string = ''
+  textareaVisible: boolean = false
 
   deadWords: boolean = true
   fakeWallet: boolean = true
@@ -41,5 +71,11 @@ export class DialogNewVaultComponent {
   onImportBtcAddressChange(checked: boolean) {
     this.importBtcAddress = checked
     this.newBtcAddress = !checked
+  }
+
+  onTextareaAnimationDone(event: AnimationEvent) {
+    if (event.toState === 'hidden') {
+      this.textareaVisible = false
+    }
   }
 }
