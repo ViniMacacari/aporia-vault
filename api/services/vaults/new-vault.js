@@ -31,6 +31,8 @@ export class NewVaultService {
     }
 
     async boost(content) {
-        return this.deadContent.addContent(content)
+        const raw = this.deadContent.addContent(content)
+        const buffer = Buffer.from(raw, 'utf-8')
+        return buffer.toString('base64')
     }
 }
