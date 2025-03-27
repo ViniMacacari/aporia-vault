@@ -19,7 +19,7 @@
                             (checkedChange)="onImportBtcAddressChange($event)"></app-checkbox>
                         <div [@elementTransition]="importBtcAddress ? 'visible' : 'hidden'"
                             (@elementTransition.done)="onTextareaAnimationDone($event)">
-                            <app-textarea [placeholder]="'Your private key'" [(model)]="btcAddress"></app-textarea>
+                            <app-textarea [placeholder]="'Your private key'" [(model)]="btcAddress" (modelChange)="onBtcAddressChange($event)"></app-textarea>
                         </div>
                     </div>
 

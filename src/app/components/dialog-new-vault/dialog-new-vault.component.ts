@@ -13,6 +13,8 @@ import { CheckboxComponent } from "../checkbox/checkbox.component"
 import { TextareaComponent } from "../textarea/textarea.component"
 import { InputComponent } from "../input/input.component"
 
+import { KeyTypeDetectorService } from '../../services/bitcoin/key-type-detector.service'
+
 @Component({
   selector: 'app-dialog-new-vault',
   standalone: true,
@@ -58,6 +60,10 @@ export class DialogNewVaultComponent {
 
   securePassword: string = ''
 
+  constructor(
+    private keyType: KeyTypeDetectorService
+  ) { }
+
   close() {
     this.onClose.emit()
   }
@@ -80,5 +86,9 @@ export class DialogNewVaultComponent {
     if (event.toState === 'hidden') {
       this.textareaVisible = false
     }
+  }
+
+  onBtcAddressChange(event: any): void {
+    console.log(this.keyType.detect(event))
   }
 }
