@@ -1,15 +1,19 @@
 import { BepCrypt } from '../../libs/bepcrypt/index.js'
+import { DeadContent } from '../security-boost/dead-content.js'
 import path from 'path'
 import fs from 'fs/promises'
 import process from 'process'
 
 export class NewVaultService {
     bepcrypt = new BepCrypt()
+    deadContent = new DeadContent()
 
     async new(data) {
+        const content = await this.boost(data.content)
+
         const aporiaVault = await this.bepcrypt.encrypt({
             privateKey: data.privateKey,
-            content: data.content
+            content: content
         })
 
         const safeFileName = data.fileName.replace(/\s+/g, '-')
@@ -24,5 +28,9 @@ export class NewVaultService {
         await fs.writeFile(filePath, JSON.stringify(aporiaVault))
 
         return filePath
+    }
+
+    async boost(content) {
+        return this.deadContent.addContent(content)
     }
 }
