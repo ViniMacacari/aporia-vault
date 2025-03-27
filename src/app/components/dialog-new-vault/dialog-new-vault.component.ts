@@ -62,12 +62,19 @@ export class DialogNewVaultComponent {
   securePassword: string = ''
   confirmSecurePassword: string = ''
 
+  isClosing: boolean = false
+
   constructor(
     private keyType: KeyTypeDetectorService
   ) { }
 
   close() {
-    this.onClose.emit()
+    this.isClosing = true
+    setTimeout(() => {
+      this.isClosing = false
+      this.isVisible = false
+      this.onClose.emit()
+    }, 300)
   }
 
   confirm(): void {

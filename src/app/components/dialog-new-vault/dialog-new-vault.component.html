@@ -1,6 +1,7 @@
-<div class="modal-backdrop fade show" *ngIf="isVisible"></div>
+<div class="modal-backdrop fade show" *ngIf="isVisible || isClosing" [ngClass]="{ 'fade-out-backdrop': isClosing }"></div>
 
-<div class="modal fade show d-block custom-modal" tabindex="-1" role="dialog" aria-modal="true" *ngIf="isVisible">
+<div class="modal fade show d-block custom-modal" tabindex="-1" role="dialog" aria-modal="true"
+    *ngIf="isVisible || isClosing" [ngClass]="{ 'fade-out': isClosing }">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
