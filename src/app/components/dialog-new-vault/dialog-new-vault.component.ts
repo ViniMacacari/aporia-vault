@@ -51,6 +51,7 @@ export class DialogNewVaultComponent {
   newBtcAddress: boolean = true
   importBtcAddress: boolean = false
   btcAddress: string = ''
+  validAddress: boolean = false
   textareaVisible: boolean = false
 
   deadWords: boolean = true
@@ -89,6 +90,12 @@ export class DialogNewVaultComponent {
   }
 
   onBtcAddressChange(event: any): void {
-    console.log(this.keyType.detect(event))
+    const result = this.keyType.detect(event)
+
+    if (result === 'seed' || result === 'privateKey') {
+      this.validAddress = true
+    } else {
+      this.validAddress = false
+    }
   }
 }

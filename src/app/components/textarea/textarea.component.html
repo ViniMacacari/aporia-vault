@@ -1,2 +1,2 @@
-<textarea [placeholder]="placeholder" [(ngModel)]="model" (ngModelChange)="modelChange.emit($event)" autocorrect="off"
-    autocapitalize="off" spellcheck="false"></textarea>
+<textarea [ngClass]="border" [placeholder]="placeholder" [(ngModel)]="model" (ngModelChange)="modelChange.emit($event)"
+    autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>

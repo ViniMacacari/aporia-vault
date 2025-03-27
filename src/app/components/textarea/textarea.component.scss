@@ -19,6 +19,14 @@ textarea {
     &::placeholder {
         color: #45264c;
     }
+
+    &.green {
+        box-shadow: 0 0 5px 1px #264126;
+    }
+
+    &.red {
+        box-shadow: 0 0 5px 1px #642525;
+    }
 }
 
 textarea::-webkit-resizer {

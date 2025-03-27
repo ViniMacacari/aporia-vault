@@ -12,14 +12,15 @@
                         <i class="fa-solid fa-bitcoin-sign icons"></i>
                         <h2 class="mb-0">Bitcoin settings</h2>
                     </div>
-                    <div class="bitcoin-settings gap-1 d-flex flex-column">
+                    <div class="bitcoin-settings gap-2 d-flex flex-column">
                         <app-checkbox [text]="'Create a new bitcoin address (BIP-39)'" [(checked)]="newBtcAddress"
                             (checkedChange)="onNewBtcAddressChange($event)"></app-checkbox>
                         <app-checkbox [text]="'Import a new bitcoin address'" [(checked)]="importBtcAddress"
                             (checkedChange)="onImportBtcAddressChange($event)"></app-checkbox>
                         <div [@elementTransition]="importBtcAddress ? 'visible' : 'hidden'"
                             (@elementTransition.done)="onTextareaAnimationDone($event)">
-                            <app-textarea [placeholder]="'Your private key'" [(model)]="btcAddress" (modelChange)="onBtcAddressChange($event)"></app-textarea>
+                            <app-textarea [border]="validAddress ? 'green' : 'red'" [placeholder]="'Your private key'"
+                                [(model)]="btcAddress" (modelChange)="onBtcAddressChange($event)"></app-textarea>
                         </div>
                     </div>
 
@@ -27,7 +28,7 @@
                         <i class="fa-solid fa-vault icons"></i>
                         <h2 class="mb-0">Vault settings</h2>
                     </div>
-                    <div class="vault-settings gap-1 d-flex flex-column">
+                    <div class="vault-settings gap-2 d-flex flex-column">
                         <app-checkbox [text]="'Use dead words to boost vault security?'"
                             [(checked)]="deadWords"></app-checkbox>
                         <app-checkbox [text]="'Create fake wallet and keys on incorrect password?'"
@@ -40,8 +41,9 @@
                         <i class="fa-solid fa-key icons"></i>
                         <h2 class="mb-0">Key settings</h2>
                     </div>
-                    <div class="vault-settings gap-1 d-flex flex-column">
-                        <app-input [type]="'text'" [placeholder]="'Your secure password'" [(model)]="securePassword"></app-input>
+                    <div class="vault-settings gap-2 d-flex flex-column">
+                        <app-input [type]="'text'" [placeholder]="'Your secure password'"
+                            [(model)]="securePassword"></app-input>
                     </div>
                 </div>
             </div>
