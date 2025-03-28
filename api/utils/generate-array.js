@@ -16,7 +16,7 @@ export class GenerateArray {
                         type: "manual"
                     },
                     seed: encKey,
-                    wallet: this.generateKey.getPrivateKeysFromMnemonic(key)
+                    wallet: []
                 }
             }
         } else if (type === 'private-key-wif') {
@@ -32,6 +32,7 @@ export class GenerateArray {
                     balance: {
                         type: "manual"
                     },
+                    seed: "",
                     wallet: [
                         {
                             path: "?",
@@ -56,6 +57,7 @@ export class GenerateArray {
                     balance: {
                         type: "manual"
                     },
+                    seed: "",
                     wallet: [
                         {
                             path: "?",

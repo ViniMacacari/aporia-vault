@@ -35,7 +35,7 @@ export class ReadVaultService {
             const walletInfo = this.generator.getPrivateKeysFromMnemonic(seed)
 
             return {
-                type: 'BIP-39',
+                type: 'bip-39',
                 vault: {
                     generationDate: this.generateDate(),
                     gapLimit: 20,
@@ -46,7 +46,7 @@ export class ReadVaultService {
                     }
                 },
                 seed: seed,
-                wallet: walletInfo
+                wallet: []
             }
         }
 
