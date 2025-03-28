@@ -3,9 +3,8 @@ import { GeneratePrivateKey } from "./generate-private-key.js"
 export class GenerateArray {
     generateKey = new GeneratePrivateKey()
 
-    generate(encKey, key, type, aporiaKey) {
+    generate(content, decContent, type, aporiaKey) {
         if (type === 'bip-39') {
-            console.log('bip-39')
             return {
                 type: type,
                 vault: {
@@ -15,13 +14,12 @@ export class GenerateArray {
                     balance: {
                         type: "manual"
                     },
-                    seed: encKey,
+                    seed: content,
                     wallet: []
                 }
             }
         } else if (type === 'private-key-wif') {
-            console.log('private-key-wif')
-            const walletData = this.generateKey.getAddressFromWIF(key)
+            const walletData = this.generateKey.getAddressFromWIF(decContent)
 
             return {
                 type: type,
@@ -38,15 +36,14 @@ export class GenerateArray {
                             path: "?",
                             address: walletData.address,
                             publicKey: walletData.publicKey,
-                            privateKey: encKey
+                            privateKey: content
                         }
                     ]
                 }
             }
         } else if (type === 'private-key-hex') {
-            console.log('private-key-hex')
-            let walletData = this.generateKey.privateKeyToWIF(key)
-            walletData = this.generateKey.getAddressFromWIF(key)
+            let walletData = this.generateKey.privateKeyToWIF(decContent)
+            walletData = this.generateKey.getAddressFromWIF(walletData)
 
             return {
                 type: type,
@@ -63,7 +60,7 @@ export class GenerateArray {
                             path: "?",
                             address: walletData.address,
                             publicKey: walletData.publicKey,
-                            privateKey: encKey
+                            privateKey: content
                         }
                     ]
                 }

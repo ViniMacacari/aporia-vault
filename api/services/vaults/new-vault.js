@@ -14,11 +14,15 @@ export class NewVaultService {
 
     async new(data) {
         let content = ''
+        let aporiaKey = ''
 
         if (data.settings.aporiaKey === true) {
             const type = this.keyTyper.detect(data.content)
             console.log(type)
             content = await this.preEncrytption(data.content)
+            console.log(content.key)
+            aporiaKey = await this.boost(content.key)
+            console.log(aporiaKey)
             content = this.arrayGen.generate(content, data.content, type, true)
             content = JSON.stringify(content)
             content = await this.boost(content)
@@ -50,12 +54,13 @@ export class NewVaultService {
 
         await fs.writeFile(filePath, aporiaVault)
 
-        return filePath
+        return {
+            filePath,
+            aporiaKey: aporiaKey
+        }
     }
 
     async boost(content) {
-        console.log('recived-> ', content)
-
         const raw = this.deadContent.addContent(content)
         const buffer = Buffer.from(raw, 'utf-8')
 
@@ -63,18 +68,26 @@ export class NewVaultService {
     }
 
     async preEncrytption(content) {
-        const randomKey = await this.generateRandomString(48)
+        const walletKey = await this.generateRandomString(128)
+        const clientKey = await this.generateRandomString(128)
 
-        let aporiaPreEncryption = await this.bepcrypt.encrypt({
+        let walletEncrypted = await this.bepcrypt.encrypt({
             privateKey: content,
-            content: randomKey
+            content: walletKey
         })
 
-        aporiaPreEncryption = Buffer.from(aporiaPreEncryption, 'utf-8')
+        let clientEncrypted = await this.bepcrypt.encrypt({
+            privateKey: clientKey,
+            content: walletKey
+        })
+
+        walletEncrypted = Buffer.from(walletEncrypted, 'utf-8')
+        clientEncrypted = Buffer.from(clientEncrypted, 'utf-8')
 
         return {
-            content: aporiaPreEncryption.toString('base64'),
-            key: randomKey
+            content: walletEncrypted.toString('base64'),
+            clientDecKey: clientKey,
+            clientKey: clientEncrypted
         }
     }
 

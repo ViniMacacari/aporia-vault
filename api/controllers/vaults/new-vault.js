@@ -14,7 +14,7 @@ export class NewVaultController {
 
             return res.status(201).json({
                 message: 'Vault created successfully',
-                path: filePath
+                content: filePath
             })
         } catch (err) {
             console.error(err)
