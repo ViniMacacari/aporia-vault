@@ -52,4 +52,27 @@ export class GeneratePrivateKey {
         const fullKey = Buffer.concat([prefix, keyBuffer, suffix])
         return bs58check.encode(fullKey)
     }
+
+    getAddressFromWIF(wif) {
+        const decoded = bs58check.decode(wif)
+        const isCompressed = decoded.length === 34
+        const privateKey = decoded.slice(1, isCompressed ? -1 : undefined)
+
+        const publicKey = secp256k1.publicKeyCreate(privateKey, isCompressed)
+
+        const { address: p2pkh } = bitcoin.payments.p2pkh({
+            pubkey: publicKey,
+            network: bitcoin.networks.bitcoin
+        })
+
+        const { address: bech32 } = bitcoin.payments.p2wpkh({
+            pubkey: publicKey,
+            network: bitcoin.networks.bitcoin
+        })
+
+        return {
+            publicKey: publicKey.toString('hex'),
+            address: p2pkh
+        }
+    }
 }

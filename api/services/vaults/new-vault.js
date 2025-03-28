@@ -1,5 +1,7 @@
 import { BepCrypt } from '../../libs/bepcrypt/index.js'
 import { DeadContent } from '../security-boost/dead-content.js'
+import { KeyTypeValidator } from '../../utils/key-type-validator.js'
+import { GenerateArray } from '../../utils/generate-array.js'
 import path from 'path'
 import fs from 'fs/promises'
 import process from 'process'
@@ -7,20 +9,25 @@ import process from 'process'
 export class NewVaultService {
     bepcrypt = new BepCrypt()
     deadContent = new DeadContent()
+    keyTyper = new KeyTypeValidator()
+    arrayGen = new GenerateArray()
 
     async new(data) {
         let content = ''
 
         if (data.settings.aporiaKey === true) {
-            console.log('aqui2')
+            const type = this.keyTyper.detect(data.content)
+            console.log(type)
             content = await this.preEncrytption(data.content)
+            content = this.arrayGen.generate(content, data.content, type, true)
             content = JSON.stringify(content)
             content = await this.boost(content)
-            console.log(content)
         } else {
-            console.log('teste')
-            content = await this.boost(content)
+            const type = this.keyTyper.detect(data.content)
+            content = this.arrayGen.generate(data.content, data.content, type, false)
+            content = JSON.stringify(content)
             console.log(content)
+            content = await this.boost(content)
         }
 
         console.log(data.privateKey)
@@ -29,8 +36,6 @@ export class NewVaultService {
             privateKey: data.privateKey,
             content: content
         })
-
-        console.log(aporiaVault)
 
         const safeFileName = data.fileName.replace(/\s+/g, '-')
         const filename = `${safeFileName}.aporia`
@@ -52,6 +57,8 @@ export class NewVaultService {
     }
 
     async boost(content) {
+        console.log('recived-> ', content)
+
         const raw = this.deadContent.addContent(content)
         const buffer = Buffer.from(raw, 'utf-8')
 

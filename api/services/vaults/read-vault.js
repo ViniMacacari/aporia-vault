@@ -25,14 +25,10 @@ export class ReadVaultService {
 
         const resetSettings = content.replace('plausibleDeniability===', '')
 
-        console.log(resetSettings)
-
         const decrypted = await this.bepcrypt.decrypt({
             content: resetSettings,
             privateKey: data.privateKey
         })
-
-        console.log(decrypted)
 
         if ((decrypted === null || decrypted === '') && hasPlausibleDeniability) {
             const seed = this.generator.generateSeed()
@@ -57,9 +53,22 @@ export class ReadVaultService {
         if (decrypted.length === 0) throw 'Invalid key'
 
         const decoded = Buffer.from(decrypted, 'base64').toString('utf-8')
+
+        console.log(decoded)
+
         const original = this.deadContent.extractContent(decoded)
 
-        return original
+        console.log(original)
+
+        let result
+
+        try {
+            result = JSON.parse(original)
+        } catch (_) {
+            result = original
+        }
+
+        return result
     }
 
     async fileExists(filePath) {
