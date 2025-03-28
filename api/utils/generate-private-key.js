@@ -2,6 +2,7 @@ import { generateMnemonic, mnemonicToSeedSync, wordlists } from 'bip39'
 import { HDKey } from '@scure/bip32'
 import * as bitcoin from 'bitcoinjs-lib'
 import bs58check from 'bs58check'
+import secp256k1 from 'secp256k1'
 
 export class GeneratePrivateKey {
     generateSeed() {
@@ -58,7 +59,8 @@ export class GeneratePrivateKey {
         const isCompressed = decoded.length === 34
         const privateKey = decoded.slice(1, isCompressed ? -1 : undefined)
 
-        const publicKey = secp256k1.publicKeyCreate(privateKey, isCompressed)
+        const publicKeyUint8 = secp256k1.publicKeyCreate(privateKey, isCompressed)
+        const publicKey = Buffer.from(publicKeyUint8)
 
         const { address: p2pkh } = bitcoin.payments.p2pkh({
             pubkey: publicKey,

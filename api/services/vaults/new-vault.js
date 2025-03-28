@@ -26,11 +26,8 @@ export class NewVaultService {
             const type = this.keyTyper.detect(data.content)
             content = this.arrayGen.generate(data.content, data.content, type, false)
             content = JSON.stringify(content)
-            console.log(content)
             content = await this.boost(content)
         }
-
-        console.log(data.privateKey)
 
         let aporiaVault = await this.bepcrypt.encrypt({
             privateKey: data.privateKey,
@@ -67,8 +64,6 @@ export class NewVaultService {
 
     async preEncrytption(content) {
         const randomKey = await this.generateRandomString(48)
-        console.log(randomKey)
-        console.log(content)
 
         let aporiaPreEncryption = await this.bepcrypt.encrypt({
             privateKey: content,
