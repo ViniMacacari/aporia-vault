@@ -20,10 +20,8 @@ export class NewVaultService {
             const type = this.keyTyper.detect(data.content)
             console.log(type)
             content = await this.preEncrytption(data.content)
-            console.log(content.key)
             aporiaKey = await this.boost(content.key)
-            console.log(aporiaKey)
-            content = this.arrayGen.generate(content, data.content, type, true)
+            content = this.arrayGen.generate(content.clientDecKey, data.content, type, true)
             content = JSON.stringify(content)
             content = await this.boost(content)
         } else {
