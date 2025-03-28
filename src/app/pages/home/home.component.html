@@ -12,7 +12,7 @@
     <hr class="separator">
 </div>
 
-<div class="d-flex align-items-center justify-content-center my-vaults">
+<div class="d-flex align-items-center justify-content-center my-vaults flex-wrap">
     <div *ngFor="let vault of vaults" class="vault" (mouseenter)="hoveredVault = vault"
         (mouseleave)="hoveredVault = null">
         <div class="d-flex align-items-center justify-content-center vault-header">
