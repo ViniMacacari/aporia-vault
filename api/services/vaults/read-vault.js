@@ -68,14 +68,13 @@ export class ReadVaultService {
 
         if (!data.filePathAporiaKey && result.vault.aporiaKey === true) {
             throw new Error('Aporia key required')
+        } else if (data.filePathAporiaKey && result.vault.aporiaKey === true) {
+            const aporiaKeyExists = await this.fileExists(data.filePathAporiaKey)
+            if (!aporiaKeyExists) throw new Error('AporiaKey file not found')
         }
 
-        const aporiaKeyExists = await this.fileExists(data.filePathAporiaKey)
-        if (!aporiaKeyExists) throw new Error('AporiaKey file not found')
-
-        const aporiaKeyContent = await fs.readFile(data.filePathAporiaKey, 'utf-8')
-
         if (data.filePathAporiaKey) {
+            const aporiaKeyContent = await fs.readFile(data.filePathAporiaKey, 'utf-8')
             const aporiaKeyBuffer = Buffer.from(aporiaKeyContent, 'base64')
             const aporiaKeyDecoded = aporiaKeyBuffer.toString('utf-8')
             const realKey = this.deadContent.extractContent(aporiaKeyDecoded)
@@ -91,11 +90,9 @@ export class ReadVaultService {
             if (result.vault.seed.length > 0) {
                 content = result.vault.seed
                 field = 'seed'
-                console.log(field)
             } else {
-                content = result.vault.wallet
+                content = result.vault.wallet[0].privateKey
                 field = 'wallet'
-                console.log(field)
             }
 
             content = Buffer.from(content, 'base64').toString('utf-8')
@@ -104,10 +101,6 @@ export class ReadVaultService {
                 privateKey: decryptedFinal,
                 content: content
             })
-
-            console.log('torce pra n ser ->>', content)
-
-            console.log('-> senha final', decryptedFinal)
 
             result.vault[field] = finalResult
 

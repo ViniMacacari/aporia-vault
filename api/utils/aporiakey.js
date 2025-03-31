@@ -7,16 +7,10 @@ export class AporiaKey {
         const walletKey = await this.generateRandomString(32)
         const clientKey = await this.generateRandomString(32)
 
-        console.log('PRIMEIRA SENHA', walletKey)
-        console.log('clientkey', clientKey)
-        console.log('conteudo pra encriptar: ', content)
-
         let walletEncrypted = await this.bepcrypt.encrypt({
             privateKey: walletKey,
             content: content
         })
-
-        console.log('-> veja se é igual', walletEncrypted)
 
         let clientEncrypted = await this.bepcrypt.encrypt({
             privateKey: clientKey,
