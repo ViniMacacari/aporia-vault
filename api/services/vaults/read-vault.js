@@ -81,21 +81,16 @@ export class ReadVaultService {
 
             const realKey = this.deadContent.extractContent(aporiaKeyDecoded)
 
+            console.log('real ->', realKey)
+
             const decryptedFinal = await this.aporiaEncryption.backToNormal({
-                content: data.privateKey,
-                clientKey: realKey,
+                aporiaKey: realKey,
                 encrypted: result.vault.aporiaKeyContent
             })
 
             console.log('🔓 Conteúdo descriptografado final:', decryptedFinal)
 
-            return {
-                ...result,
-                vault: {
-                    ...result.vault,
-                    decryptedContent: decryptedFinal
-                }
-            }
+            return result
         } else {
             return result
         }

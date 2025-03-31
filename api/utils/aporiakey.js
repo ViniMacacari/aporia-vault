@@ -7,44 +7,39 @@ export class AporiaKey {
         const walletKey = await this.generateRandomString(128)
         const clientKey = await this.generateRandomString(128)
 
+        console.log('WALLET', walletKey)
+        console.log('clientkey', clientKey)
+
         let walletEncrypted = await this.bepcrypt.encrypt({
-            privateKey: content,
-            content: walletKey
+            privateKey: walletKey,
+            content: content
         })
+
+        console.log('walletenc', walletEncrypted)
 
         let clientEncrypted = await this.bepcrypt.encrypt({
             privateKey: clientKey,
             content: walletKey
         })
 
+        console.log('clientenc', clientEncrypted)
+
         walletEncrypted = Buffer.from(walletEncrypted, 'utf-8')
         clientEncrypted = Buffer.from(clientEncrypted, 'utf-8')
 
         return {
-            content: walletEncrypted.toString('base64'),
+            walletEncrypted: walletEncrypted.toString('base64'),
             clientDecKey: clientKey,
-            clientKey: clientKey
+            clientKey: clientEncrypted.toString('base64')
         }
     }
 
-    async backToNormal({ content, clientKey, encrypted }) {
-        const walletEncrypted = Buffer.from(encrypted, 'base64').toString('utf-8')
+    async backToNormal({ clientKey, aporiaKey, preEncContent }) {
+        aporiaKey = Buffer.from(aporiaKey, 'base64').toString('utf-8')
 
-        const walletKey = await this.bepcrypt.decrypt({
-            privateKey: clientKey,
-            content: walletEncrypted
-        })
+        console.log(aporiaKey)
 
-        if (!walletKey) throw new Error('Invalid AporiaKey or corrupted data')
-
-        const originalContent = await this.bepcrypt.decrypt({
-            privateKey: content,
-            content: walletKey
-        })
-
-        if (!originalContent) throw new Error('Failed to decrypt original content')
-
-        return originalContent
+        return ''
     }
 
     async generateRandomString(length) {

@@ -20,13 +20,9 @@ export class NewVaultService {
 
         if (data.settings.aporiaKey === true) {
             const type = this.keyTyper.detect(data.content)
-            console.log(type)
             content = await this.aporiaEncryption.generate(data.content)
-            console.log(content)
-            console.log('teste-<', content.clientKey)
             aporiaKey = await this.boost(content.clientKey)
-            console.log(content.clientDecKey)
-            content = this.arrayGen.generate(content.content, data.content, type, true, content.clientKey)
+            content = this.arrayGen.generate(content.walletEncrypted, data.content, type, true, content.clientDecKey)
             content = JSON.stringify(content)
             content = await this.boost(content)
         } else {
