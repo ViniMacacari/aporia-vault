@@ -4,25 +4,24 @@ export class AporiaKey {
     bepcrypt = new BepCrypt()
 
     async generate(content) {
-        const walletKey = await this.generateRandomString(128)
-        const clientKey = await this.generateRandomString(128)
+        const walletKey = await this.generateRandomString(32)
+        const clientKey = await this.generateRandomString(32)
 
-        console.log('WALLET', walletKey)
+        console.log('PRIMEIRA SENHA', walletKey)
         console.log('clientkey', clientKey)
+        console.log('conteudo pra encriptar: ', content)
 
         let walletEncrypted = await this.bepcrypt.encrypt({
             privateKey: walletKey,
             content: content
         })
 
-        console.log('walletenc', walletEncrypted)
+        console.log('-> veja se é igual', walletEncrypted)
 
         let clientEncrypted = await this.bepcrypt.encrypt({
             privateKey: clientKey,
             content: walletKey
         })
-
-        console.log('clientenc', clientEncrypted)
 
         walletEncrypted = Buffer.from(walletEncrypted, 'utf-8')
         clientEncrypted = Buffer.from(clientEncrypted, 'utf-8')
@@ -34,12 +33,15 @@ export class AporiaKey {
         }
     }
 
-    async backToNormal({ clientKey, aporiaKey, preEncContent }) {
+    async backToNormal({ clientKey, aporiaKey }) {
         aporiaKey = Buffer.from(aporiaKey, 'base64').toString('utf-8')
 
-        console.log(aporiaKey)
+        const password = await this.bepcrypt.decrypt({
+            privateKey: clientKey,
+            content: aporiaKey
+        })
 
-        return ''
+        return password
     }
 
     async generateRandomString(length) {

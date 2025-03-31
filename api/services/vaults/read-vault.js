@@ -78,17 +78,38 @@ export class ReadVaultService {
         if (data.filePathAporiaKey) {
             const aporiaKeyBuffer = Buffer.from(aporiaKeyContent, 'base64')
             const aporiaKeyDecoded = aporiaKeyBuffer.toString('utf-8')
-
             const realKey = this.deadContent.extractContent(aporiaKeyDecoded)
-
-            console.log('real ->', realKey)
 
             const decryptedFinal = await this.aporiaEncryption.backToNormal({
                 aporiaKey: realKey,
-                encrypted: result.vault.aporiaKeyContent
+                clientKey: result.vault.aporiaKeyContent
             })
 
-            console.log('🔓 Conteúdo descriptografado final:', decryptedFinal)
+            let content
+            let field
+
+            if (result.vault.seed.length > 0) {
+                content = result.vault.seed
+                field = 'seed'
+                console.log(field)
+            } else {
+                content = result.vault.wallet
+                field = 'wallet'
+                console.log(field)
+            }
+
+            content = Buffer.from(content, 'base64').toString('utf-8')
+
+            const finalResult = await this.bepcrypt.decrypt({
+                privateKey: decryptedFinal,
+                content: content
+            })
+
+            console.log('torce pra n ser ->>', content)
+
+            console.log('-> senha final', decryptedFinal)
+
+            result.vault[field] = finalResult
 
             return result
         } else {
