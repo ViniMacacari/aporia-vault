@@ -1,6 +1,7 @@
 import { BepCrypt } from '../../libs/bepcrypt/index.js'
 import { DeadContent } from '../security-boost/dead-content.js'
 import { GeneratePrivateKey } from '../../utils/generate-private-key.js'
+import { AporiaKey } from '../../utils/aporiakey.js'
 import path from 'path'
 import fs from 'fs/promises'
 import process from 'process'
@@ -9,6 +10,7 @@ export class ReadVaultService {
     bepcrypt = new BepCrypt()
     deadContent = new DeadContent()
     generator = new GeneratePrivateKey()
+    aporiaEncryption = new AporiaKey()
 
     async read(data) {
         const safeFileName = data.fileName.replace(/\s+/g, '-') + '.aporia'
@@ -54,11 +56,7 @@ export class ReadVaultService {
 
         const decoded = Buffer.from(decrypted, 'base64').toString('utf-8')
 
-        console.log(decoded)
-
         const original = this.deadContent.extractContent(decoded)
-
-        console.log(original)
 
         let result
 
@@ -68,7 +66,39 @@ export class ReadVaultService {
             result = original
         }
 
-        return result
+        if (!data.filePathAporiaKey && result.vault.aporiaKey === true) {
+            throw new Error('Aporia key required')
+        }
+
+        const aporiaKeyExists = await this.fileExists(data.filePathAporiaKey)
+        if (!aporiaKeyExists) throw new Error('AporiaKey file not found')
+
+        const aporiaKeyContent = await fs.readFile(data.filePathAporiaKey, 'utf-8')
+
+        if (data.filePathAporiaKey) {
+            const aporiaKeyBuffer = Buffer.from(aporiaKeyContent, 'base64')
+            const aporiaKeyDecoded = aporiaKeyBuffer.toString('utf-8')
+
+            const realKey = this.deadContent.extractContent(aporiaKeyDecoded)
+
+            const decryptedFinal = await this.aporiaEncryption.backToNormal({
+                content: data.privateKey,
+                clientKey: realKey,
+                encrypted: result.vault.aporiaKeyContent
+            })
+
+            console.log('🔓 Conteúdo descriptografado final:', decryptedFinal)
+
+            return {
+                ...result,
+                vault: {
+                    ...result.vault,
+                    decryptedContent: decryptedFinal
+                }
+            }
+        } else {
+            return result
+        }
     }
 
     async fileExists(filePath) {

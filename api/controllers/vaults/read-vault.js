@@ -3,14 +3,14 @@ import { ReadVaultService } from '../../services/vaults/read-vault.js'
 export class ReadVaultController {
     async read(req, res) {
         try {
-            const { fileName, privateKey } = req.body
+            const { fileName, privateKey, filePathAporiaKey } = req.body
 
             if (!fileName || !privateKey) {
                 return res.status(400).json({ error: 'Missing fileName or privateKey' })
             }
 
             const service = new ReadVaultService()
-            const data = await service.read({ fileName, privateKey })
+            const data = await service.read({ fileName, privateKey, filePathAporiaKey })
 
             return res.status(200).json({
                 message: 'Vault decrypted successfully',

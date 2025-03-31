@@ -3,7 +3,7 @@ import { GeneratePrivateKey } from "./generate-private-key.js"
 export class GenerateArray {
     generateKey = new GeneratePrivateKey()
 
-    generate(content, decContent, type, aporiaKey) {
+    generate(content, decContent, type, aporiaKey, contentKey) {
         if (type === 'bip-39') {
             return {
                 type: type,
@@ -11,6 +11,7 @@ export class GenerateArray {
                     generationDate: new Date().toISOString().split('T')[0],
                     gapLimit: 20,
                     aporiaKey: aporiaKey,
+                    aporiaKeyContent: contentKey,
                     balance: {
                         type: "manual"
                     },
@@ -27,6 +28,7 @@ export class GenerateArray {
                     generationDate: new Date().toISOString().split('T')[0],
                     gapLimit: 20,
                     aporiaKey: aporiaKey,
+                    aporiaKeyContent: contentKey,
                     balance: {
                         type: "manual"
                     },
@@ -51,6 +53,7 @@ export class GenerateArray {
                     generationDate: new Date().toISOString().split('T')[0],
                     gapLimit: 20,
                     aporiaKey: aporiaKey,
+                    aporiaKeyContent: contentKey,
                     balance: {
                         type: "manual"
                     },

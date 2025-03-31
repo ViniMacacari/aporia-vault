@@ -2,6 +2,7 @@ import { BepCrypt } from '../../libs/bepcrypt/index.js'
 import { DeadContent } from '../security-boost/dead-content.js'
 import { KeyTypeValidator } from '../../utils/key-type-validator.js'
 import { GenerateArray } from '../../utils/generate-array.js'
+import { AporiaKey } from '../../utils/aporiakey.js'
 import path from 'path'
 import fs from 'fs/promises'
 import process from 'process'
@@ -11,6 +12,7 @@ export class NewVaultService {
     deadContent = new DeadContent()
     keyTyper = new KeyTypeValidator()
     arrayGen = new GenerateArray()
+    aporiaEncryption = new AporiaKey()
 
     async new(data) {
         let content = ''
@@ -19,9 +21,12 @@ export class NewVaultService {
         if (data.settings.aporiaKey === true) {
             const type = this.keyTyper.detect(data.content)
             console.log(type)
-            content = await this.preEncrytption(data.content)
-            aporiaKey = await this.boost(content.key)
-            content = this.arrayGen.generate(content.clientDecKey, data.content, type, true)
+            content = await this.aporiaEncryption.generate(data.content)
+            console.log(content)
+            console.log('teste-<', content.clientKey)
+            aporiaKey = await this.boost(content.clientKey)
+            console.log(content.clientDecKey)
+            content = this.arrayGen.generate(content.content, data.content, type, true, content.clientKey)
             content = JSON.stringify(content)
             content = await this.boost(content)
         } else {
@@ -52,6 +57,11 @@ export class NewVaultService {
 
         await fs.writeFile(filePath, aporiaVault)
 
+        if (aporiaKey.length > 0) {
+            const aporiaKeyFile = path.join(vaultsDir, `${safeFileName}.aporiakey`)
+            await fs.writeFile(aporiaKeyFile, aporiaKey)
+        }
+
         return {
             filePath,
             aporiaKey: aporiaKey
@@ -63,41 +73,5 @@ export class NewVaultService {
         const buffer = Buffer.from(raw, 'utf-8')
 
         return buffer.toString('base64')
-    }
-
-    async preEncrytption(content) {
-        const walletKey = await this.generateRandomString(128)
-        const clientKey = await this.generateRandomString(128)
-
-        let walletEncrypted = await this.bepcrypt.encrypt({
-            privateKey: content,
-            content: walletKey
-        })
-
-        let clientEncrypted = await this.bepcrypt.encrypt({
-            privateKey: clientKey,
-            content: walletKey
-        })
-
-        walletEncrypted = Buffer.from(walletEncrypted, 'utf-8')
-        clientEncrypted = Buffer.from(clientEncrypted, 'utf-8')
-
-        return {
-            content: walletEncrypted.toString('base64'),
-            clientDecKey: clientKey,
-            clientKey: clientEncrypted
-        }
-    }
-
-    async generateRandomString(length) {
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%'
-        let result = ''
-
-        for (let i = 0; i < length; i++) {
-            const randomIndex = Math.floor(Math.random() * chars.length)
-            result += chars[randomIndex]
-        }
-
-        return result
     }
 }
