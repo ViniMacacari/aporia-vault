@@ -5,11 +5,12 @@ import { VaultElementComponent } from "../../components/vault-element/vault-elem
 
 import { InternalRequestService } from '../../services/request/internal-request.service'
 import { DialogNewVaultComponent } from "../../components/dialog-new-vault/dialog-new-vault.component"
+import { LoaderComponent } from "../../components/loader/loader.component"
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, VaultElementComponent, DialogNewVaultComponent],
+  imports: [CommonModule, ButtonComponent, VaultElementComponent, DialogNewVaultComponent, LoaderComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
