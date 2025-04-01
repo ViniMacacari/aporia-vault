@@ -57,9 +57,5 @@ export class HomeComponent {
     this.newVault?.close()
     this.showLoader = false
     this.mapVaults()
-
-    setTimeout(() => {
-      this.router.navigate('/vault')
-    }, 1500)
   }
 }
