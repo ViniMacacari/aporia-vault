@@ -5,7 +5,6 @@ import {
   transition,
   style,
   animate,
-  state,
   AnimationEvent
 } from '@angular/animations'
 
@@ -17,28 +16,45 @@ import {
   styleUrl: './loader.component.scss',
   animations: [
     trigger('elementTransition', [
-      state('hidden', style({
-        opacity: 0,
-        transform: 'translateY(-10%)',
-        filter: 'blur(3px)'
-      })),
-      state('visible', style({
-        opacity: 1,
-        transform: 'translateY(0)',
-        filter: 'blur(0)'
-      })),
-      transition('hidden => visible', animate('300ms ease-out')),
-      transition('visible => hidden', animate('200ms ease-in'))
+      transition(':enter', [
+        style({
+          opacity: 0,
+          transform: 'translateY(-10%)',
+          filter: 'blur(3px)'
+        }),
+        animate('300ms ease-out', style({
+          opacity: 1,
+          transform: 'translateY(0)',
+          filter: 'blur(0)'
+        }))
+      ]),
+      transition(':leave', [
+        animate('200ms ease-in', style({
+          opacity: 0,
+          transform: 'translateY(-10%)',
+          filter: 'blur(3px)'
+        }))
+      ])
     ])
   ]
 })
 export class LoaderComponent {
   @Input() isVisible: boolean = false
   closing: boolean = false
+  animationState: 'hidden' | 'visible' = 'hidden'
+
+  ngAfterViewInit() {
+    if (this.isVisible && !this.closing) {
+      setTimeout(() => {
+        this.animationState = 'visible'
+      }, 0)
+    }
+  }
 
   hide() {
     this.closing = true
-  }  
+    this.animationState = 'hidden'
+  }
 
   onAnimationDone(event: AnimationEvent) {
     if (event.toState === 'hidden') {

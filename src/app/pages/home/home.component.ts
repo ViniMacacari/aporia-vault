@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ButtonComponent } from "../../components/button/button.component"
 import { VaultElementComponent } from "../../components/vault-element/vault-element.component"
@@ -19,6 +19,8 @@ export class HomeComponent {
   hoveredVault: string | null = null
   showNewVault: boolean = false
   showLoader: boolean = false
+
+  @ViewChild(DialogNewVaultComponent) newVault?: DialogNewVaultComponent
 
   constructor(
     private ireq: InternalRequestService
@@ -45,5 +47,11 @@ export class HomeComponent {
     })
 
     return apiVault.data
+  }
+
+  createdVault(): void {
+    this.newVault?.close()
+    this.showLoader = false
+    this.mapVaults()
   }
 }

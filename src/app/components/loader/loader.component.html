@@ -1,8 +1,7 @@
 <div class="modal-backdrop fade show" *ngIf="isVisible || closing" [ngClass]="{ 'fade-out-backdrop': closing }"></div>
 
-<div class="modal d-block custom-modal" tabindex="-1" role="dialog" aria-modal="true"
-    *ngIf="isVisible || closing" [ngClass]="{ 'fade-out': closing }"
-    [@elementTransition]="isVisible && !closing ? 'visible' : 'hidden'"
+<div class="modal d-block custom-modal" tabindex="-1" role="dialog" aria-modal="true" *ngIf="isVisible || closing"
+    [ngClass]="{ 'fade-out': closing }" [@elementTransition]="animationState"
     (@elementTransition.done)="onAnimationDone($event)">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content text-center py-5 px-4">
