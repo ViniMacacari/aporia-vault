@@ -84,12 +84,6 @@ export class DialogNewVaultComponent {
   async confirm(): Promise<void> {
     if (this.securePassword != this.confirmSecurePassword) return
 
-    console.log(this.vaultName)
-    console.log(this.btcAddress)
-    console.log(this.newBtcAddress)
-    console.log(this.fakeWallet)
-    console.log(this.digitalKey)
-
     try {
       let address: string = this.btcAddress
 
@@ -111,6 +105,12 @@ export class DialogNewVaultComponent {
       })
 
       this.onCreate.emit(result)
+
+      this.vaultName = ''
+      this.securePassword = ''
+      this.confirmSecurePassword = ''
+      this.digitalKey = true
+      this.fakeWallet = true
     } catch (error: any) {
       console.error(error)
     }
