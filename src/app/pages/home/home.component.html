@@ -30,5 +30,6 @@
     </div>
 </div>
 
-<app-dialog-new-vault [isVisible]="showNewVault" (onClose)="showNewVault = false"></app-dialog-new-vault>
-<app-loader [isVisible]="true"></app-loader>
+<app-dialog-new-vault [isVisible]="showNewVault" (onClose)="showNewVault = false" (creating)="showLoader = true"
+    (onCreate)="showLoader = false; showNewVault = false"></app-dialog-new-vault>
+<app-loader [isVisible]="showLoader"></app-loader>

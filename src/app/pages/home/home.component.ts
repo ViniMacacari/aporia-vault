@@ -18,6 +18,7 @@ export class HomeComponent {
   vaults: string[] = []
   hoveredVault: string | null = null
   showNewVault: boolean = false
+  showLoader: boolean = false
 
   constructor(
     private ireq: InternalRequestService

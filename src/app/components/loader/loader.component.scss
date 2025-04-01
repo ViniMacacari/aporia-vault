@@ -1,7 +1,16 @@
+.modal-backdrop {
+    z-index: 99998 !important;
+}
+
 .modal-dialog {
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 99999 !important;
+}
+
+.custom-modal {
+    z-index: 99999 !important;
 }
 
 .modal-content {
@@ -14,6 +23,49 @@
     min-height: 250px;
     width: 300px;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+    z-index: 99999 !important;
+}
+
+.fade-out {
+    animation: fadeOut 0.3s ease-in-out forwards;
+}
+
+.fade-out-backdrop {
+    animation: fadeOutOpacity 0.3s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-10%);
+    }
+}
+
+@keyframes fadeOutOpacity {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
 }
 
 .loader {

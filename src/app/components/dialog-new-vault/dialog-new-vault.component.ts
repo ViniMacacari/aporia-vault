@@ -47,7 +47,8 @@ import { InternalRequestService } from '../../services/request/internal-request.
 export class DialogNewVaultComponent {
   @Input() isVisible: boolean = false
   @Output() onClose = new EventEmitter<void>()
-  @Output() onConfirm = new EventEmitter<void>()
+  @Output() creating = new EventEmitter<void>()
+  @Output() onCreate = new EventEmitter<any>()
 
   newBtcAddress: boolean = true
   importBtcAddress: boolean = false
@@ -97,7 +98,7 @@ export class DialogNewVaultComponent {
         address = newAddress.content
       }
 
-      console.log(address)
+      this.creating.emit()
 
       const result = await this.ireq.post('/vaults/new', {
         settings: {
@@ -109,7 +110,7 @@ export class DialogNewVaultComponent {
         fileName: this.vaultName
       })
 
-      console.log(result)
+      this.onCreate.emit(result)
     } catch (error: any) {
       console.error(error)
     }
