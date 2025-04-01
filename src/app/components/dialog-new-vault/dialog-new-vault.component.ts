@@ -14,6 +14,7 @@ import { TextareaComponent } from "../textarea/textarea.component"
 import { InputComponent } from "../input/input.component"
 
 import { KeyTypeDetectorService } from '../../services/bitcoin/key-type-detector.service'
+import { InternalRequestService } from '../../services/request/internal-request.service'
 
 @Component({
   selector: 'app-dialog-new-vault',
@@ -51,6 +52,7 @@ export class DialogNewVaultComponent {
   newBtcAddress: boolean = true
   importBtcAddress: boolean = false
   btcAddress: string = ''
+  vaultName: string = ''
   validAddress: boolean = false
   textareaVisible: boolean = false
 
@@ -65,7 +67,8 @@ export class DialogNewVaultComponent {
   isClosing: boolean = false
 
   constructor(
-    private keyType: KeyTypeDetectorService
+    private keyType: KeyTypeDetectorService,
+    private ireq: InternalRequestService
   ) { }
 
   close() {
@@ -77,18 +80,53 @@ export class DialogNewVaultComponent {
     }, 300)
   }
 
-  confirm(): void {
-    this.onConfirm.emit()
+  async confirm(): Promise<void> {
+    if (this.securePassword != this.confirmSecurePassword) return
+
+    console.log(this.vaultName)
+    console.log(this.btcAddress)
+    console.log(this.newBtcAddress)
+    console.log(this.fakeWallet)
+    console.log(this.digitalKey)
+
+    try {
+      let address: string = this.btcAddress
+
+      if (this.newBtcAddress) {
+        const newAddress: any = await this.ireq.post('/bitcoin/new', {})
+        address = newAddress.content
+      }
+
+      console.log(address)
+
+      const result = await this.ireq.post('/vaults/new', {
+        settings: {
+          fakeWallet: this.fakeWallet,
+          aporiaKey: this.digitalKey
+        },
+        privateKey: this.securePassword,
+        content: address,
+        fileName: this.vaultName
+      })
+
+      console.log(result)
+    } catch (error: any) {
+      console.error(error)
+    }
   }
 
   onNewBtcAddressChange(checked: boolean) {
     this.newBtcAddress = checked
     this.importBtcAddress = !checked
+    this.btcAddress = ''
+    this.validAddress = false
   }
 
   onImportBtcAddressChange(checked: boolean) {
     this.importBtcAddress = checked
     this.newBtcAddress = !checked
+    this.btcAddress = ''
+    this.validAddress = false
   }
 
   onTextareaAnimationDone(event: AnimationEvent) {

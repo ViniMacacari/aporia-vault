@@ -1,4 +1,5 @@
-<div class="modal-backdrop fade show" *ngIf="isVisible || isClosing" [ngClass]="{ 'fade-out-backdrop': isClosing }"></div>
+<div class="modal-backdrop fade show" *ngIf="isVisible || isClosing" [ngClass]="{ 'fade-out-backdrop': isClosing }">
+</div>
 
 <div class="modal fade show d-block custom-modal" tabindex="-1" role="dialog" aria-modal="true"
     *ngIf="isVisible || isClosing" [ngClass]="{ 'fade-out': isClosing }">
@@ -39,9 +40,10 @@
 
                     <div class="d-flex align-items-center gap-2">
                         <i class="fa-solid fa-key icons"></i>
-                        <h2 class="mb-0">Key settings</h2>
+                        <h2 class="mb-0">Personal settings</h2>
                     </div>
                     <div class="vault-settings gap-2 d-flex flex-column">
+                        <app-input [type]="'text'" [placeholder]="'Vault Name'" [(model)]="vaultName"></app-input>
                         <app-input [type]="'password'" [placeholder]="'Your secure password'"
                             [(model)]="securePassword"></app-input>
                         <app-input [type]="'password'" [placeholder]="'Confirm your password'"
