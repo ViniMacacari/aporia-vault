@@ -7,6 +7,9 @@ import { InternalRequestService } from '../../services/request/internal-request.
 import { DialogNewVaultComponent } from "../../components/dialog-new-vault/dialog-new-vault.component"
 import { LoaderComponent } from "../../components/loader/loader.component"
 
+import { RouterTransitionService } from '../../services/transition/alter-transition.service'
+import { Router } from 'express'
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -23,7 +26,8 @@ export class HomeComponent {
   @ViewChild(DialogNewVaultComponent) newVault?: DialogNewVaultComponent
 
   constructor(
-    private ireq: InternalRequestService
+    private ireq: InternalRequestService,
+    private router: RouterTransitionService
   ) { }
 
   ngOnInit(): void {
@@ -53,5 +57,9 @@ export class HomeComponent {
     this.newVault?.close()
     this.showLoader = false
     this.mapVaults()
+
+    setTimeout(() => {
+      this.router.navigate('/vault')
+    }, 1500)
   }
 }
