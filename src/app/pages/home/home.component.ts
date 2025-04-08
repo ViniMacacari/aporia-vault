@@ -6,14 +6,14 @@ import { VaultElementComponent } from "../../components/vault-element/vault-elem
 import { InternalRequestService } from '../../services/request/internal-request.service'
 import { DialogNewVaultComponent } from "../../components/dialog-new-vault/dialog-new-vault.component"
 import { LoaderComponent } from "../../components/loader/loader.component"
-
+import { DialogOpenVaultComponent } from "../../components/dialog-open-vault/dialog-open-vault.component";
 import { RouterTransitionService } from '../../services/transition/alter-transition.service'
 import { Router } from 'express'
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, VaultElementComponent, DialogNewVaultComponent, LoaderComponent],
+  imports: [CommonModule, ButtonComponent, VaultElementComponent, DialogNewVaultComponent, LoaderComponent, DialogOpenVaultComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -21,6 +21,7 @@ export class HomeComponent {
   vaults: string[] = []
   hoveredVault: string | null = null
   showNewVault: boolean = false
+  showOpenVault: boolean = true
   showLoader: boolean = false
 
   @ViewChild(DialogNewVaultComponent) newVault?: DialogNewVaultComponent

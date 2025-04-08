@@ -1,0 +1,85 @@
+.custom-modal {
+    animation: fadeIn 0.3s ease-in-out;
+
+    .modal-content {
+        background-color: #0f061b;
+        color: white;
+        box-shadow: 29px 29px 88px -29px rgba(165, 109, 255, .2);
+        border-radius: 30px;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-header,
+    .modal-footer {
+        border-color: #4d145a;
+
+        h2 {
+            text-align: center;
+        }
+    }
+
+    .btn-primary {
+        background-color: #5f1c73;
+        border: none;
+
+        &:hover {
+            background-color: #4d145a;
+        }
+    }
+}
+
+.fade-out {
+    animation: fadeOut 0.3s ease-in-out forwards;
+}
+
+.fade-out-backdrop {
+    animation: fadeOutOpacity 0.3s ease-in-out forwards;
+}
+
+.bitcoin-settings,
+.vault-settings {
+    padding: 5px 15px;
+}
+
+.icons {
+    font-size: 1.2em;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-10%);
+    }
+}
+
+@keyframes fadeOutOpacity {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
