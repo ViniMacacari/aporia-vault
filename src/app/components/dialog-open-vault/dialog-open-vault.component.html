@@ -17,11 +17,10 @@
                     <div class="bitcoin-settings gap-2 d-flex flex-column">
                         <app-checkbox [text]="'Has .aporiakey?'" [(checked)]="newBtcAddress"
                             (checkedChange)="onNewBtcAddressChange($event)"></app-checkbox>
-                        <div [@elementTransition]="importBtcAddress ? 'visible' : 'hidden'"
+                        <div [@elementTransition]="newBtcAddress ? 'visible' : 'hidden'"
                             (@elementTransition.done)="onTextareaAnimationDone($event)">
-                            <app-textarea [border]="validAddress ? 'green' : 'red'"
-                                [placeholder]="'Your private key or seed prhase'" [(model)]="btcAddress"
-                                (modelChange)="onBtcAddressChange($event)"></app-textarea>
+                            <app-input [type]="'password'" [placeholder]="'Your aporiakey'"
+                                [(model)]="securePassword"></app-input>
                         </div>
                     </div>
 
