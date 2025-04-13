@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import multer from 'multer'
 import path from 'path'
+import fs from 'fs'
 import { fileURLToPath } from 'url'
 
 import { VaultsRoutes } from './routes/vaults.js'
@@ -16,9 +17,23 @@ const PORT = 47953
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-const upload = multer({
-    dest: path.join(__dirname, '../tmp')
+const vaultsDir = path.join(process.cwd(), 'tmp')
+
+if (!fs.existsSync(vaultsDir)) {
+    fs.mkdirSync(vaultsDir, { recursive: true })
+}
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, vaultsDir)
+    },
+    filename: (req, file, cb) => {
+        const safeName = file.originalname.replace(/\s+/g, '-')
+        cb(null, safeName)
+    }
 })
+
+const upload = multer({ storage })
 
 app.post('/upload/aporia', upload.single('file'), (req, res) => {
     if (!req.file) {

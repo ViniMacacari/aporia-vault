@@ -62,7 +62,7 @@ export class DialogOpenVaultComponent {
   digitalKey: boolean = true
 
   securePassword: string = ''
-  confirmSecurePassword: string = ''
+  aporiaKeyPath: string = ''
 
   isClosing: boolean = false
 
@@ -81,38 +81,7 @@ export class DialogOpenVaultComponent {
   }
 
   async confirm(): Promise<void> {
-    if (this.securePassword != this.confirmSecurePassword) return
 
-    try {
-      let address: string = this.btcAddress
-
-      if (this.newBtcAddress) {
-        const newAddress: any = await this.ireq.post('/bitcoin/new', {})
-        address = newAddress.content
-      }
-
-      this.creating.emit()
-
-      const result = await this.ireq.post('/vaults/new', {
-        settings: {
-          fakeWallet: this.fakeWallet,
-          aporiaKey: this.digitalKey
-        },
-        privateKey: this.securePassword,
-        content: address,
-        fileName: this.vaultName
-      })
-
-      this.onCreate.emit(result)
-
-      this.vaultName = ''
-      this.securePassword = ''
-      this.confirmSecurePassword = ''
-      this.digitalKey = true
-      this.fakeWallet = true
-    } catch (error: any) {
-      console.error(error)
-    }
   }
 
   onNewBtcAddressChange(checked: boolean) {
@@ -145,7 +114,17 @@ export class DialogOpenVaultComponent {
     }
   }
 
-  selectedAporiaFile(event: any): void {
-    console.log('Selected file:', event)
+  async onAporiaKeySelected(file: File): Promise<void> {
+    const form = new FormData()
+    form.append('file', file)
+
+    try {
+      const res = await this.ireq.post('/upload/aporia', form)
+      this.aporiaKeyPath = res.filePath
+
+      console.log('Path do arquivo salvo:', this.aporiaKeyPath)
+    } catch (err) {
+      console.error('Erro ao enviar arquivo:', err)
+    }
   }
 }

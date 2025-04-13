@@ -19,8 +19,9 @@
                             (checkedChange)="onNewBtcAddressChange($event)"></app-checkbox>
                         <div [@elementTransition]="newBtcAddress ? 'visible' : 'hidden'"
                             (@elementTransition.done)="onTextareaAnimationDone($event)">
-                            <app-input (fileSelected)="selectedAporiaFile($event)" [type]="'file'" [placeholder]="'Your aporiakey'"
-                                [(model)]="securePassword"></app-input>
+                            <app-input [type]="'file'" [placeholder]="'Select your .aporiakey file'"
+                                (fileSelected)="onAporiaKeySelected($event)">
+                            </app-input>
                         </div>
                     </div>
 
