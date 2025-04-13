@@ -1,2 +1,5 @@
-<input type="{{ type }}" placeholder="{{ placeholder }}" [(ngModel)]="model" (ngModelChange)="modelChange.emit($event)"
-    autocorrect="off" autocapitalize="off" spellcheck="false">
+<input *ngIf="type !== 'file'" type="{{ type }}" [placeholder]="placeholder" [(ngModel)]="model"
+    (ngModelChange)="modelChange.emit($event)" autocorrect="off" autocapitalize="off" spellcheck="false" />
+
+<input *ngIf="type === 'file'" type="file" accept=".aporiakey" class="styled-file-input"
+    (change)="onFileSelected($event)" />

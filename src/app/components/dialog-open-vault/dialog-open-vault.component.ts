@@ -10,7 +10,6 @@ import {
 } from '@angular/animations'
 import { ButtonComponent } from "../button/button.component"
 import { CheckboxComponent } from "../checkbox/checkbox.component"
-import { TextareaComponent } from "../textarea/textarea.component"
 import { InputComponent } from "../input/input.component"
 
 import { KeyTypeDetectorService } from '../../services/bitcoin/key-type-detector.service'
@@ -19,7 +18,7 @@ import { InternalRequestService } from '../../services/request/internal-request.
 @Component({
   selector: 'app-dialog-open-vault',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, CheckboxComponent, TextareaComponent, InputComponent],
+  imports: [CommonModule, ButtonComponent, CheckboxComponent, InputComponent],
   templateUrl: './dialog-open-vault.component.html',
   styleUrl: './dialog-open-vault.component.scss',
   animations: [
@@ -144,5 +143,9 @@ export class DialogOpenVaultComponent {
     } else {
       this.validAddress = false
     }
+  }
+
+  selectedAporiaFile(event: any): void {
+    console.log('Selected file:', event)
   }
 }
