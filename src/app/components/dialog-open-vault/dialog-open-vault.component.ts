@@ -14,6 +14,7 @@ import { InputComponent } from "../input/input.component"
 
 import { KeyTypeDetectorService } from '../../services/bitcoin/key-type-detector.service'
 import { InternalRequestService } from '../../services/request/internal-request.service'
+import { UnlockVaultService } from '../../services/vaults/unlock-vault.service'
 
 @Component({
   selector: 'app-dialog-open-vault',
@@ -45,6 +46,7 @@ import { InternalRequestService } from '../../services/request/internal-request.
 })
 export class DialogOpenVaultComponent {
   @Input() isVisible: boolean = false
+  @Input() vaultName: string = ''
   @Output() onClose = new EventEmitter<void>()
   @Output() creating = new EventEmitter<void>()
   @Output() onCreate = new EventEmitter<any>()
@@ -52,7 +54,6 @@ export class DialogOpenVaultComponent {
   newBtcAddress: boolean = true
   importBtcAddress: boolean = false
   btcAddress: string = ''
-  vaultName: string = ''
   validAddress: boolean = false
   textareaVisible: boolean = false
 
@@ -68,7 +69,8 @@ export class DialogOpenVaultComponent {
 
   constructor(
     private keyType: KeyTypeDetectorService,
-    private ireq: InternalRequestService
+    private ireq: InternalRequestService,
+    private unlockVault: UnlockVaultService
   ) { }
 
   close() {
@@ -82,35 +84,35 @@ export class DialogOpenVaultComponent {
 
   async confirm(): Promise<void> {
 
+    try {
+      console.log({
+        privateKey: this.securePassword,
+        fileName: this.vaultName,
+        filePathAporiaKey: this.aporiaKeyPath
+      })
+
+      const result = await this.unlockVault.openVault({
+        privateKey: this.securePassword,
+        fileName: this.vaultName,
+        filePathAporiaKey: this.aporiaKeyPath
+      })
+
+      console.log(result)
+    } catch (error: any) {
+      console.error('Error reading vault:', error)
+    }
   }
 
-  onNewBtcAddressChange(checked: boolean) {
+  hasAporiaKey(checked: boolean) {
     this.newBtcAddress = checked
     this.importBtcAddress = !checked
     this.btcAddress = ''
     this.validAddress = false
   }
 
-  onImportBtcAddressChange(checked: boolean) {
-    this.importBtcAddress = checked
-    this.newBtcAddress = !checked
-    this.btcAddress = ''
-    this.validAddress = false
-  }
-
-  onTextareaAnimationDone(event: AnimationEvent) {
+  hasAporiaKeyAnimation(event: AnimationEvent) {
     if (event.toState === 'hidden') {
       this.textareaVisible = false
-    }
-  }
-
-  onBtcAddressChange(event: any): void {
-    const result = this.keyType.detect(event)
-
-    if (result === 'seed' || result === 'privateKey') {
-      this.validAddress = true
-    } else {
-      this.validAddress = false
     }
   }
 

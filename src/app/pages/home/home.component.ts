@@ -21,8 +21,10 @@ export class HomeComponent {
   vaults: string[] = []
   hoveredVault: string | null = null
   showNewVault: boolean = false
-  showOpenVault: boolean = true
+  showOpenVault: boolean = false
   showLoader: boolean = false
+
+  selectedVault: string = ''
 
   @ViewChild(DialogNewVaultComponent) newVault?: DialogNewVaultComponent
 
@@ -58,5 +60,10 @@ export class HomeComponent {
     this.newVault?.close()
     this.showLoader = false
     this.mapVaults()
+  }
+
+  openVault(event: any): void {
+    this.selectedVault = event
+    this.showOpenVault = true
   }
 }

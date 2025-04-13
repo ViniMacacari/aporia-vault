@@ -16,9 +16,9 @@
                     </div>
                     <div class="bitcoin-settings gap-2 d-flex flex-column">
                         <app-checkbox [text]="'Has .aporiakey?'" [(checked)]="newBtcAddress"
-                            (checkedChange)="onNewBtcAddressChange($event)"></app-checkbox>
+                            (checkedChange)="hasAporiaKey($event)"></app-checkbox>
                         <div [@elementTransition]="newBtcAddress ? 'visible' : 'hidden'"
-                            (@elementTransition.done)="onTextareaAnimationDone($event)">
+                            (@elementTransition.done)="hasAporiaKeyAnimation($event)">
                             <app-input [type]="'file'" [placeholder]="'Select your .aporiakey file'"
                                 (fileSelected)="onAporiaKeySelected($event)">
                             </app-input>
