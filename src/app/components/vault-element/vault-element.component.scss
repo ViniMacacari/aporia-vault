@@ -121,7 +121,7 @@
 
         .vault-door-handle {
             position: absolute;
-            border: solid 4.6px #5f1c73;
+            border: solid 4.5px #5f1c73;
             width: 28px;
             height: 28px;
             margin: 20.4px;
@@ -161,8 +161,6 @@
 }
 
 .vault-door-handle {
-    transform: translateY(2px);
-    transform: translateX(1px);
     box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.05),
         0 0 10px rgba(164, 108, 255, 0.3);
 }

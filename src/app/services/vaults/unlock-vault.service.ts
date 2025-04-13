@@ -10,7 +10,7 @@ export class UnlockVaultService {
     private ireq: InternalRequestService
   ) { }
 
-  async openVault(data: { privateKey: string, fileName: string, filePathAporiaKey: string | null }): Promise<any> {
+  async openVault(data: { privateKey: string, fileName: string, filePathAporiaKey: string | undefined }): Promise<any> {
     try {
       const vault = await this.ireq.post('/vaults/read', {
         privateKey: data.privateKey,

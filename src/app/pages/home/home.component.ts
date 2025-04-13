@@ -8,7 +8,6 @@ import { DialogNewVaultComponent } from "../../components/dialog-new-vault/dialo
 import { LoaderComponent } from "../../components/loader/loader.component"
 import { DialogOpenVaultComponent } from "../../components/dialog-open-vault/dialog-open-vault.component";
 import { RouterTransitionService } from '../../services/transition/alter-transition.service'
-import { Router } from 'express'
 
 @Component({
   selector: 'app-home',
@@ -65,5 +64,10 @@ export class HomeComponent {
   openVault(event: any): void {
     this.selectedVault = event
     this.showOpenVault = true
+  }
+
+  vaultInfo(vault: any): void {
+    console.log(vault)
+    this.showLoader = false
   }
 }

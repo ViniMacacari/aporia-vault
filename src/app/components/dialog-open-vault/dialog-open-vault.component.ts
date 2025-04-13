@@ -63,7 +63,7 @@ export class DialogOpenVaultComponent {
   digitalKey: boolean = true
 
   securePassword: string = ''
-  aporiaKeyPath: string = ''
+  aporiaKeyPath: string | undefined = ''
 
   isClosing: boolean = false
 
@@ -74,6 +74,10 @@ export class DialogOpenVaultComponent {
   ) { }
 
   close() {
+    this.vaultName = ''
+    this.securePassword = ''
+    this.aporiaKeyPath = undefined
+
     this.isClosing = true
     setTimeout(() => {
       this.isClosing = false
@@ -83,6 +87,8 @@ export class DialogOpenVaultComponent {
   }
 
   async confirm(): Promise<void> {
+
+    this.creating.emit()
 
     try {
       console.log({
@@ -97,7 +103,10 @@ export class DialogOpenVaultComponent {
         filePathAporiaKey: this.aporiaKeyPath
       })
 
-      console.log(result)
+      setTimeout(() => {
+        this.onCreate.emit(result)
+        this.close()
+      }, 1500)
     } catch (error: any) {
       console.error('Error reading vault:', error)
     }
