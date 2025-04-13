@@ -33,5 +33,5 @@
 <app-dialog-new-vault [isVisible]="showNewVault" (onClose)="showNewVault = false" (creating)="showLoader = true"
     (onCreate)="createdVault()"></app-dialog-new-vault>
 <app-loader [isVisible]="showLoader"></app-loader>
-<app-dialog-open-vault [isVisible]="showOpenVault" [vaultName]="this.selectedVault" (creating)="showLoader = true"
+<app-dialog-open-vault [isVisible]="showOpenVault" [vaultName]="this.selectedVault" (creating)="creatingVault()"
     (onClose)="showOpenVault = false" (onCreate)="vaultInfo($event)"></app-dialog-open-vault>

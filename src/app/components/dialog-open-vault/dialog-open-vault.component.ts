@@ -74,7 +74,6 @@ export class DialogOpenVaultComponent {
   ) { }
 
   close() {
-    this.vaultName = ''
     this.securePassword = ''
     this.aporiaKeyPath = undefined
 
@@ -103,10 +102,8 @@ export class DialogOpenVaultComponent {
         filePathAporiaKey: this.aporiaKeyPath
       })
 
-      setTimeout(() => {
-        this.onCreate.emit(result)
-        this.close()
-      }, 1500)
+      this.onCreate.emit(result)
+      this.close()
     } catch (error: any) {
       console.error('Error reading vault:', error)
     }

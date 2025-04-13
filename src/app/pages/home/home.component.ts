@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core'
+import { Component, ViewChild, ChangeDetectorRef } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ButtonComponent } from "../../components/button/button.component"
 import { VaultElementComponent } from "../../components/vault-element/vault-element.component"
@@ -29,7 +29,8 @@ export class HomeComponent {
 
   constructor(
     private ireq: InternalRequestService,
-    private router: RouterTransitionService
+    private router: RouterTransitionService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -66,8 +67,19 @@ export class HomeComponent {
     this.showOpenVault = true
   }
 
+  creatingVault(): void {
+    console.log('teste')
+    this.showLoader = false
+    this.cdr.detectChanges()
+    setTimeout(() => {
+      this.showLoader = true
+    }, 100)
+  }
+
   vaultInfo(vault: any): void {
     console.log(vault)
-    this.showLoader = false
+    setTimeout(() => {
+      this.showLoader = false
+    }, 1500)
   }
 }
