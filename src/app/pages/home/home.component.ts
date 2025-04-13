@@ -2,12 +2,13 @@ import { Component, ViewChild, ChangeDetectorRef } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ButtonComponent } from "../../components/button/button.component"
 import { VaultElementComponent } from "../../components/vault-element/vault-element.component"
-
-import { InternalRequestService } from '../../services/request/internal-request.service'
 import { DialogNewVaultComponent } from "../../components/dialog-new-vault/dialog-new-vault.component"
 import { LoaderComponent } from "../../components/loader/loader.component"
-import { DialogOpenVaultComponent } from "../../components/dialog-open-vault/dialog-open-vault.component";
+import { DialogOpenVaultComponent } from "../../components/dialog-open-vault/dialog-open-vault.component"
+
+import { InternalRequestService } from '../../services/request/internal-request.service'
 import { RouterTransitionService } from '../../services/transition/alter-transition.service'
+import { ActiveVaultsService } from '../../services/vaults/active-vaults.service'
 
 @Component({
   selector: 'app-home',
@@ -30,7 +31,8 @@ export class HomeComponent {
   constructor(
     private ireq: InternalRequestService,
     private router: RouterTransitionService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private vaultService: ActiveVaultsService
   ) { }
 
   ngOnInit(): void {
@@ -77,7 +79,8 @@ export class HomeComponent {
   }
 
   vaultInfo(vault: any): void {
-    console.log(vault)
+    this.vaultService.setVaultInfo(vault)
+    this.router.navigate('/vault')
     setTimeout(() => {
       this.showLoader = false
     }, 1500)
