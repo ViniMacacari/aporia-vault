@@ -1,0 +1,23 @@
+.top-vault {
+    border-bottom: 2px solid #3b1a47;
+}
+
+.keys {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    width: 100%;
+
+    h3 {
+        text-align: center;
+
+        max-width: 300px;
+        padding: 10px 20px;
+
+        border-radius: 30px;
+
+        background-color: #18061e;
+    }
+}
